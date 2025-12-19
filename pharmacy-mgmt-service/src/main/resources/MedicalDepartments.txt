@@ -1,0 +1,33 @@
+Emergency Department
+Outpatient Department
+Inpatient Department
+Intensive Care Unit
+Operating Room
+Radiology Department
+Laboratory Department
+Pharmacy Department
+Cardiology Department
+Neurology Department
+Gastroenterology Department
+Oncology Department
+Orthopedics Department
+Obstetrics and Gynecology Department
+Pediatrics Department
+Dermatology Department
+Psychiatry Department
+Anesthesiology Department
+Ophthalmology Department
+Otolaryngology(ENT) Department
+Urology Department
+Nephrology Department
+Endocrinology Department
+Pulmonology Department
+Rehabilitation Department
+Physical Therapy Department
+Speech Therapy Department
+Nutrition and Dietetics Department
+Administration Department
+Human Resources Department
+Information Technology Department
+Quality Assurance Department
+Medical Records Department
