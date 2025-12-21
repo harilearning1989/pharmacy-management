@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "customers")
+@Table(name = "CUSTOMERS")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +17,7 @@ public class Customer {
     private String name;
     private String email;
     private String phone;
+    private String gender;
+    private String dob;
 }
 

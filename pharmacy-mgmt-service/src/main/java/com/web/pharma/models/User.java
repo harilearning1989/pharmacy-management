@@ -5,7 +5,6 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -13,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,6 +31,13 @@ public class User implements UserDetails {
 
     @Column(nullable = false)
     private String password;
+
+    // 📧 Contact Info
+    @Column(unique = true, length = 150)
+    private String email;
+
+    @Column(name = "phone_number", length = 20)
+    private String phoneNumber;
 
     // 🔐 Account status flags
     @Column(nullable = false)

@@ -9,6 +9,8 @@ CREATE TABLE users
     id                      BIGSERIAL PRIMARY KEY,
     username                VARCHAR(100) NOT NULL UNIQUE,
     password                VARCHAR(255) NOT NULL,
+    email                   VARCHAR(150),
+    phone_number            VARCHAR(20),
 
     enabled                 BOOLEAN      NOT NULL DEFAULT TRUE,
     account_non_expired     BOOLEAN      NOT NULL DEFAULT TRUE,
@@ -22,6 +24,10 @@ CREATE TABLE users
     created_at              TIMESTAMP             DEFAULT CURRENT_TIMESTAMP,
     updated_at              TIMESTAMP             DEFAULT CURRENT_TIMESTAMP
 );
+
+ALTER TABLE users
+    ADD COLUMN email VARCHAR(150) UNIQUE,
+ADD COLUMN phone_number VARCHAR(20);
 
 CREATE TABLE user_roles
 (
@@ -44,3 +50,21 @@ INSERT INTO roles (name)
 VALUES ('ROLE_ADMIN'),
        ('ROLE_USER'),
        ('ROLE_PHARMACIST');
+
+CREATE TABLE customers
+(
+    id     BIGSERIAL PRIMARY KEY,
+
+    name   VARCHAR(150) NOT NULL,
+    email  VARCHAR(150),
+    phone  VARCHAR(15),
+    gender VARCHAR(10),
+    dob    DATE
+);
+
+ALTER TABLE customers
+    ADD CONSTRAINT uq_customers_phone UNIQUE (phone);
+
+ALTER TABLE customers
+    ADD CONSTRAINT chk_gender
+        CHECK (gender IN ('MALE', 'FEMALE', 'OTHER'));

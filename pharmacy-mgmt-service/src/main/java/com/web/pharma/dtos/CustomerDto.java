@@ -1,6 +1,10 @@
 package com.web.pharma.dtos;
 
+import com.web.pharma.models.Customer;
+import com.web.pharma.models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.util.Set;
 
 @Schema(description = "Customer data transfer object")
 public record CustomerDto(
@@ -11,6 +15,32 @@ public record CustomerDto(
         @Schema(description = "Customer email", example = "john@example.com")
         String email,
         @Schema(description = "Customer phone number", example = "+1234567890")
-        String phone
-) {}
+        String phone,
+        @Schema(description = "Customer gender", example = "Male")
+        String gender,
+        @Schema(description = "Customer dob", example = "06-04-1989")
+        String dob
+
+) {
+    public static CustomerDto toDto(Customer customer) {
+        return new CustomerDto(
+                customer.getId(),
+                customer.getName(),
+                customer.getEmail(),
+                customer.getPhone(),
+                customer.getGender(),
+                customer.getDob()
+        );
+    }
+
+    public static Customer toEntity(CustomerDto customerDto) {
+        return Customer.builder()
+                .name(customerDto.name)
+                .email(customerDto.email)
+                .phone(customerDto.phone)
+                .gender(customerDto.gender)
+                .dob(customerDto.dob)
+                .build();
+    }
+}
 

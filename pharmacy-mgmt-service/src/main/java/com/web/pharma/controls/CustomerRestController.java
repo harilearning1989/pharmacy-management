@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/customers")
 @RequiredArgsConstructor
 @SecurityRequirement(name = "bearerAuth")  // JWT Bearer token
 public class CustomerRestController {

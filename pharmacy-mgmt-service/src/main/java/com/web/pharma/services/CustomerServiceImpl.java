@@ -1,7 +1,6 @@
 package com.web.pharma.services;
 
 import com.web.pharma.dtos.CustomerDto;
-import com.web.pharma.mappers.CustomerMapper;
 import com.web.pharma.models.Customer;
 import com.web.pharma.repos.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +14,12 @@ import java.util.stream.Collectors;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository repository;
-    private final CustomerMapper mapper = CustomerMapper.INSTANCE;
 
     @Override
     public CustomerDto registerCustomer(CustomerDto dto) {
-        Customer customer = mapper.toEntity(dto);
+        Customer customer = CustomerDto.toEntity(dto);
         Customer saved = repository.save(customer);
-        return mapper.toDto(saved);
+        return CustomerDto.toDto(saved);
     }
 
     @Override
@@ -31,20 +29,20 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setName(dto.name());
         customer.setEmail(dto.email());
         customer.setPhone(dto.phone());
-        return mapper.toDto(repository.save(customer));
+        return CustomerDto.toDto(repository.save(customer));
     }
 
     @Override
     public CustomerDto getCustomer(Long id) {
         return repository.findById(id)
-                .map(mapper::toDto)
+                .map(CustomerDto::toDto)
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
     }
 
     @Override
     public List<CustomerDto> getAllCustomers() {
         return repository.findAll().stream()
-                .map(mapper::toDto)
+                .map(CustomerDto::toDto)
                 .collect(Collectors.toList());
     }
 }
