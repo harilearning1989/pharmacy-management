@@ -4,6 +4,7 @@ import com.web.pharma.models.Customer;
 import com.web.pharma.models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Schema(description = "Customer data transfer object")
@@ -29,17 +30,18 @@ public record CustomerDto(
                 customer.getEmail(),
                 customer.getPhone(),
                 customer.getGender(),
-                customer.getDob()
+                customer.getDob().toString()
         );
     }
 
     public static Customer toEntity(CustomerDto customerDto) {
+        LocalDate dob = LocalDate.parse(customerDto.dob());
         return Customer.builder()
                 .name(customerDto.name)
                 .email(customerDto.email)
                 .phone(customerDto.phone)
                 .gender(customerDto.gender)
-                .dob(customerDto.dob)
+                .dob(dob)
                 .build();
     }
 }

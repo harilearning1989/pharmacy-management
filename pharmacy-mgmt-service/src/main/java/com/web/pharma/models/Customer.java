@@ -1,7 +1,10 @@
 package com.web.pharma.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -18,6 +21,7 @@ public class Customer {
     private String email;
     private String phone;
     private String gender;
-    private String dob;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dob;
 }
 
