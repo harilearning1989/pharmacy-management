@@ -13,22 +13,17 @@ import java.util.List;
 @Repository
 public interface SaleRepository extends JpaRepository<Sale, Long> {
 
-    // Today
-    @Query("""
-                SELECT s FROM Sale s
-                WHERE DATE(s.saleDate) = CURRENT_DATE
-            """)
-    List<Sale> findTodaySales();
 
     // Date range
     @Query("""
-                SELECT s FROM Sale s
-                WHERE s.saleDate BETWEEN :start AND :end
-            """)
+    SELECT s FROM Sale s
+    WHERE s.saleDate BETWEEN :start AND :end
+""")
     List<Sale> findSalesBetween(
             @Param("start") LocalDateTime start,
             @Param("end") LocalDateTime end
     );
+
 
     // Customer based
     List<Sale> findByCustomerId(Long customerId);

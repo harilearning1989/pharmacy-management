@@ -1,5 +1,7 @@
 package com.web.pharma.dtos;
 
+import com.web.pharma.models.Medicine;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -12,5 +14,18 @@ public record MedicineResponseDto(
         BigDecimal price,
         int stock,
         boolean prescriptionRequired
-) {}
+) {
+    public static MedicineResponseDto toDto(Medicine medicine) {
+        return new MedicineResponseDto(
+                medicine.getId(),
+                medicine.getName(),
+                medicine.getBrand(),
+                medicine.getBatchNumber(),
+                medicine.getExpiryDate(),
+                medicine.getPrice(),
+                medicine.getStock(),
+                medicine.isPrescriptionRequired()
+        );
+    }
+}
 

@@ -20,7 +20,10 @@ public class SaleHistoryServiceImpl implements SaleHistoryService {
 
     @Override
     public List<SaleHistoryDto> getTodaySales() {
-        return map(saleRepository.findTodaySales());
+        LocalDateTime start = LocalDate.now().atStartOfDay();
+        LocalDateTime end = LocalDate.now().atTime(23, 59, 59);
+
+        return map(saleRepository.findSalesBetween(start, end));
     }
 
     @Override

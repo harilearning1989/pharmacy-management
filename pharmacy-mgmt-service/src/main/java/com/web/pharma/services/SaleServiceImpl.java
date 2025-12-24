@@ -4,10 +4,7 @@ package com.web.pharma.services;
 import com.web.pharma.dtos.SaleItemRequestDto;
 import com.web.pharma.dtos.SaleRequestDto;
 import com.web.pharma.dtos.SaleResponseDto;
-import com.web.pharma.models.Customer;
-import com.web.pharma.models.Sale;
-import com.web.pharma.models.SaleItem;
-import com.web.pharma.models.User;
+import com.web.pharma.models.*;
 import com.web.pharma.repos.CustomerRepository;
 import com.web.pharma.repos.MedicineRepository;
 import com.web.pharma.repos.SaleRepository;
@@ -33,7 +30,6 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     public SaleResponseDto createSale(SaleRequestDto dto, String username) {
-
         Customer customer = customerRepository.findById(dto.customerId())
                 .orElseThrow();
 

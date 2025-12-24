@@ -69,6 +69,22 @@ ALTER TABLE customers
     ADD CONSTRAINT chk_gender
         CHECK (gender IN ('MALE', 'FEMALE', 'OTHER'));
 
+---------------------------------------------------
+
+CREATE TABLE medicines
+(
+    id                    BIGSERIAL PRIMARY KEY,
+    name                  VARCHAR(255)   NOT NULL,
+    brand                 VARCHAR(100),
+    batch_number          VARCHAR(50),
+    expiry_date           DATE           NOT NULL,
+    price                 NUMERIC(10, 2) NOT NULL,
+    stock                 INT            NOT NULL DEFAULT 0,
+    prescription_required BOOLEAN        NOT NULL DEFAULT FALSE,
+    created_at            TIMESTAMP               DEFAULT CURRENT_TIMESTAMP,
+    updated_at            TIMESTAMP               DEFAULT CURRENT_TIMESTAMP
+);
+
 -------------------------------------------------
 CREATE TABLE sales
 (
@@ -93,18 +109,3 @@ CREATE TABLE sale_items
     unit_price  NUMERIC(10, 2) NOT NULL,
     total_price NUMERIC(10, 2) NOT NULL
 );
-
-CREATE TABLE medicines
-(
-    id                    BIGSERIAL PRIMARY KEY,
-    name                  VARCHAR(255)   NOT NULL,
-    brand                 VARCHAR(100),
-    batch_number          VARCHAR(50),
-    expiry_date           DATE           NOT NULL,
-    price                 NUMERIC(10, 2) NOT NULL,
-    stock                 INT            NOT NULL DEFAULT 0,
-    prescription_required BOOLEAN        NOT NULL DEFAULT FALSE,
-    created_at            TIMESTAMP               DEFAULT CURRENT_TIMESTAMP,
-    updated_at            TIMESTAMP               DEFAULT CURRENT_TIMESTAMP
-);
-
