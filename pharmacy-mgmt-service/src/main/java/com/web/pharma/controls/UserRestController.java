@@ -1,9 +1,6 @@
 package com.web.pharma.controls;
 
-import com.web.pharma.dtos.AdminRequestDto;
-import com.web.pharma.dtos.PatchUserRequest;
-import com.web.pharma.dtos.UpdatePasswordRequest;
-import com.web.pharma.dtos.UserResponseDto;
+import com.web.pharma.dtos.*;
 import com.web.pharma.models.User;
 import com.web.pharma.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -153,8 +150,9 @@ public class UserRestController {
             @ApiResponse(responseCode = "401", description = "Invalid credentials")
     })
     @PostMapping("/login")
-    public String login(@RequestBody AdminRequestDto request) {
-        return userService.login(request);
+    public LoginResponseDto login(@RequestBody AdminRequestDto request) {
+        String token = userService.login(request);
+        return new LoginResponseDto(token);
     }
 }
 

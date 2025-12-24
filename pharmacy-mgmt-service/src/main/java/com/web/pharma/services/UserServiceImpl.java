@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,19 +38,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto saveUser(AdminRequestDto request) {
-        Role userRole = roleRepository.findByName(request.role())
-                .orElseThrow(() -> new IllegalStateException("Role ROLE_USER not found in database"));
+        /*Role userRole = roleRepository.findByName(request.role())
+                .orElseThrow(() -> new IllegalStateException("Role ROLE_USER not found in database"));*/
+        Set<Role> roles = getUserRoles(request.roles());
 
         User user = User.builder()
                 .username(request.username())
                 .password(passwordEncoder.encode(request.password()))
-                .roles(Set.of(userRole))
+                .roles(roles)
                 .email(request.email())
                 .phoneNumber(request.phoneNumber())
                 .build();
 
         user = userRepository.save(user);
         return UserResponseDto.fromEntity(user);
+    }
+
+    private Set<Role> getUserRoles(Set<String> roles) {
+        return roles.stream()
+                .map(roleName ->
+                        roleRepository.findByName(roleName)
+                                .orElseThrow(() ->
+                                        new IllegalStateException("Role " + roleName + " not found")
+                                )
+                )
+                .collect(Collectors.toSet());
     }
 
     @Override

@@ -1,4 +1,6 @@
 package com.web.pharma.dtos;
 
-public record AdminRequestDto(String username, String password, String role,String email,String phoneNumber) {
+import java.util.Set;
+
+public record AdminRequestDto(String username, String password, Set<String> roles, String email, String phoneNumber) {
 }

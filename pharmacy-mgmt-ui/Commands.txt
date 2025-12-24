@@ -1,0 +1,20 @@
+ng new pharmacy-mgmt-ui
+npm install --save-dev @types/node@16
+rm -rf node_modules package-lock.json
+npm install
+
+npm install bootstrap@5
+npm install @popperjs/core
+
+ng g m modules/auth --routing
+ng g c components/auth/login
+ng g c components/auth/register
+ng g s services/auth
+ng g s services/token
+ng g interceptor interceptor/auth
+ng g interceptor interceptor/error
+
+ng g m modules/dashboard --routing
+ng g c components/dashboard/dashboard
+
+

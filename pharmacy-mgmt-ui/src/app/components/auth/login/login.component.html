@@ -1,0 +1,37 @@
+<div class="container mt-5 col-md-4">
+  <h3 class="text-center mb-4">Login</h3>
+
+  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+
+    <input
+      class="form-control mb-3"
+      formControlName="username"
+      placeholder="Username"
+    />
+
+    <input
+      class="form-control mb-3"
+      type="password"
+      formControlName="password"
+      placeholder="Password"
+    />
+
+    <!-- Login Button -->
+    <button
+      class="btn btn-primary w-100 mb-2"
+      [disabled]="loginForm.invalid"
+    >
+      Login
+    </button>
+
+    <!-- Register Button -->
+    <button
+      type="button"
+      class="btn btn-outline-secondary w-100"
+      routerLink="/auth/register"
+    >
+      Register
+    </button>
+
+  </form>
+</div>
