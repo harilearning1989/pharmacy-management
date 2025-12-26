@@ -6,6 +6,8 @@ npm install
 npm install bootstrap@5
 npm install @popperjs/core
 
+npm i bootstrap-icons
+
 ng g m modules/auth --routing
 ng g c components/auth/login
 ng g c components/auth/register
@@ -14,7 +16,9 @@ ng g s services/token
 ng g interceptor interceptor/auth
 ng g interceptor interceptor/error
 
+ng g m modules/home --routing
 ng g m modules/dashboard --routing
-ng g c components/dashboard/dashboard
+ng g c components/dashboard
+ng g c components/home
 
 

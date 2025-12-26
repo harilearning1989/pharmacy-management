@@ -1,37 +1,59 @@
-<div class="container mt-5 col-md-4">
-  <h3 class="text-center mb-4">Login</h3>
+<div class="auth-bg">
+  <div class="auth-overlay"></div>
 
-  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+  <div class="auth-card p-4">
 
-    <input
-      class="form-control mb-3"
-      formControlName="username"
-      placeholder="Username"
-    />
+    <h4 class="text-center mb-3 text-primary">
+      Pharmacy Management System
+    </h4>
 
-    <input
-      class="form-control mb-3"
-      type="password"
-      formControlName="password"
-      placeholder="Password"
-    />
+    <p class="text-center text-muted mb-4">
+      Login to your account
+    </p>
 
-    <!-- Login Button -->
-    <button
-      class="btn btn-primary w-100 mb-2"
-      [disabled]="loginForm.invalid"
-    >
-      Login
-    </button>
+    <!-- Error -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
 
-    <!-- Register Button -->
-    <button
-      type="button"
-      class="btn btn-outline-secondary w-100"
-      routerLink="/auth/register"
-    >
-      Register
-    </button>
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
 
-  </form>
+      <div class="mb-3">
+        <input
+          class="form-control"
+          formControlName="username"
+          placeholder="Username"
+          [class.is-invalid]="f.username.touched && f.username.invalid"
+        />
+        <div class="invalid-feedback">Username is required</div>
+      </div>
+
+      <div class="mb-3">
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Password"
+          [class.is-invalid]="f.password.touched && f.password.invalid"
+        />
+        <div class="invalid-feedback">Password is required</div>
+      </div>
+
+      <button
+        class="btn btn-primary w-100 mb-2"
+        [disabled]="loginForm.invalid || loading"
+      >
+        Login
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-outline-secondary w-100"
+        routerLink="/auth/register"
+      >
+        Register
+      </button>
+
+    </form>
+  </div>
 </div>

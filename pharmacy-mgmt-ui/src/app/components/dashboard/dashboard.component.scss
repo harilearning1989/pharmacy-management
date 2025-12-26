@@ -1,0 +1,26 @@
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.stat-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.action-card {
+  background: #fff;
+  padding: 25px;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+}

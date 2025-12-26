@@ -1,0 +1,41 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  min-width: 240px;
+  background-color: #2f3e4e;
+  color: #fff;
+}
+
+/* Main content area */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f4f6f9;
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  height: 60px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 10;
+}
+
+/* Page content */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}

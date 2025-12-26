@@ -1,42 +1,101 @@
-<div class="container mt-5 col-md-5">
-  <h3 class="text-center mb-4">Register</h3>
+<div class="auth-bg">
+  <div class="auth-overlay"></div>
 
-  <form [formGroup]="registerForm" (ngSubmit)="submit()">
+  <!-- Removed col-md / col-lg -->
+  <div class="auth-card auth-card-wide p-4">
 
-    <input class="form-control mb-3" formControlName="username" placeholder="Username">
-    <input class="form-control mb-3" type="password" formControlName="password" placeholder="Password">
-    <input class="form-control mb-3" type="email" formControlName="email" placeholder="Email">
-    <input class="form-control mb-3" type="number" formControlName="phoneNumber" placeholder="Phone Number">
+    <h4 class="text-center mb-3 text-success">
+      Pharmacy Management – Register
+    </h4>
 
-    <label class="form-label">Roles</label>
+    <p class="text-center text-muted mb-4">
+      Create a new account
+    </p>
 
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        checked
-        (change)="onRoleChange($event, 'ROLE_USER')"
-      />
-      <label class="form-check-label">ROLE_USER</label>
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+
+      <!-- Username -->
+      <div class="mb-3">
+        <input
+          class="form-control"
+          formControlName="username"
+          placeholder="Username"
+          [class.is-invalid]="registerForm.controls.username.touched && registerForm.controls.username.invalid"
+        />
+        <div class="invalid-feedback">Username is required</div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Password"
+          [class.is-invalid]="registerForm.controls.password.touched && registerForm.controls.password.invalid"
+        />
+        <div class="invalid-feedback">Password is required</div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Email"
+          [class.is-invalid]="registerForm.controls.email.touched && registerForm.controls.email.invalid"
+        />
+        <div class="invalid-feedback">Valid email is required</div>
+      </div>
+
+      <!-- Phone -->
+      <div class="mb-3">
+        <input
+          type="number"
+          class="form-control"
+          formControlName="phoneNumber"
+          placeholder="Phone Number"
+          [class.is-invalid]="registerForm.controls.phoneNumber.touched && registerForm.controls.phoneNumber.invalid"
+        />
+        <div class="invalid-feedback">Phone number is required</div>
+      </div>
+
+      <!-- Roles -->
+      <label class="form-label fw-bold">Roles</label>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          checked
+          (change)="onRoleChange($event, 'ROLE_USER')"
+        />
+        <label class="form-check-label">User</label>
+      </div>
+
+      <div class="form-check mb-4">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          (change)="onRoleChange($event, 'ROLE_ADMIN')"
+        />
+        <label class="form-check-label">Admin</label>
+      </div>
+
+      <!-- Register Button -->
+      <button
+        class="btn btn-success w-100"
+        [disabled]="registerForm.invalid"
+      >
+        Register
+      </button>
+
+    </form>
+
+    <div class="text-center mt-3">
+      <a routerLink="/auth/login">Back to Login</a>
     </div>
 
-    <div class="form-check mb-3">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        (change)="onRoleChange($event, 'ROLE_ADMIN')"
-      />
-      <label class="form-check-label">ROLE_ADMIN</label>
-    </div>
-
-
-    <button class="btn btn-success w-100" [disabled]="registerForm.invalid">
-      Register
-    </button>
-
-  </form>
-
-  <div class="text-center mt-3">
-    <a routerLink="/auth/login">Back to Login</a>
   </div>
 </div>
