@@ -21,4 +21,36 @@ ng g m modules/dashboard --routing
 ng g c components/dashboard
 ng g c components/home
 
+ng g m modules/invoice --routing
+ng g c components/invoice -m modules/invoice
+
+ng g m modules/medicine --routing
+ng g c components/medicine -m modules/medicine
+
+ng g m modules/customer --routing
+ng g c components/customer -m modules/customer
+ng g s services/customer
+
+ng g m modules/purchase --routing
+ng g c components/purchase -m modules/purchase
+
+ng g m modules/stock --routing
+ng g c components/stock -m modules/stock
+
+ng g m modules/report --routing
+ng g c components/report -m modules/report
+
+ng g m modules/manufacturer --routing
+ng g c components/manufacturer -m modules/manufacturer
+
+ng g m modules/return --routing
+ng g c components/return -m modules/return
+
+ng g m modules/supplier --routing
+ng g c components/supplier -m modules/supplier
+
+ng g i models/Customer
+ng g i models/Medicine
+
+
 
