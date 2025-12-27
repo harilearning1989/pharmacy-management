@@ -8,7 +8,7 @@
     [(ngModel)]="searchText"
   />
 
-  <!-- Add Medicine -->
+  <!-- Add Customer -->
   <button
     class="btn btn-primary btn-sm action-btn"
     title="Add Customer"
@@ -33,18 +33,18 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let med of filterCustomer()" class="table-hover-row">
-        <td>{{ med.id }}</td>
-        <td>{{ med.name }}</td>
-        <td>{{ med.email }}</td>
-        <td>{{ med.phone }}</td>
-        <td>{{ med.dob | date:'yyyy-MM-dd' }}</td>
-        <td>{{ med.gender }}</td>
+      <tr *ngFor="let cust of filterCustomer()" class="table-hover-row">
+        <td>{{ cust.id }}</td>
+        <td>{{ cust.name }}</td>
+        <td>{{ cust.email }}</td>
+        <td>{{ cust.phone }}</td>
+        <td>{{ cust.dob | date:'yyyy-MM-dd' }}</td>
+        <td>{{ cust.gender }}</td>
         <td>
           <button class="btn btn-warning btn-sm p-0 me-1" style="width:24px; height:24px;" title="Edit">
             <i class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i>
           </button>
-          <button class="btn btn-danger btn-sm p-0" style="width:24px; height:24px;" (click)="deleteCustomer(med.id)"
+          <button class="btn btn-danger btn-sm p-0" style="width:24px; height:24px;" (click)="deleteCustomer(cust.id)"
                   title="Delete">
             <i class="bi bi-trash-fill" style="font-size: 0.8rem;"></i>
           </button>

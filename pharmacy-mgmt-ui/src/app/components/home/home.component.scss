@@ -24,8 +24,13 @@
 
 /* Header */
 .header {
-  height: 60px;
-  background: #ffffff;
+  height: 50px;
+  background: linear-gradient(
+      90deg,
+      #3B82C4 0%,
+      #2F6FAE 50%,
+      #2A5F9E 100%
+  );
   border-bottom: 1px solid #e5e5e5;
   display: flex;
   align-items: center;
@@ -36,6 +41,5 @@
 /* Page content */
 .content {
   flex: 1;
-  padding: 20px;
   overflow-y: auto;
 }

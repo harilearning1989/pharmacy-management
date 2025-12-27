@@ -1,1 +1,56 @@
-<p>supplier works!</p>
+<div class="d-flex align-items-center gap-2 mb-2">
+
+  <!-- Search box (takes remaining width) -->
+  <input
+    type="text"
+    class="form-control form-control-sm flex-grow-1"
+    placeholder="Search Customer..."
+    [(ngModel)]="searchText"
+  />
+
+  <!-- Add Customer -->
+  <button
+    class="btn btn-primary btn-sm action-btn"
+    title="Add Customer"
+  >
+    <i class="bi bi-plus-lg"></i>
+  </button>
+
+</div>
+
+<div class="table-responsive" style="max-height: 480px; overflow-y: auto;">
+  <div class="table-responsive" style="max-height: 480px; overflow-y: auto;">
+    <table class="table table-bordered table-striped compact-table">
+      <thead class="table-light sticky-header">
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>DOB</th>
+        <th>Gender</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let cust of filterCustomer()" class="table-hover-row">
+        <td>{{ cust.id }}</td>
+        <td>{{ cust.name }}</td>
+        <td>{{ cust.email }}</td>
+        <td>{{ cust.phone }}</td>
+        <td>{{ cust.dob | date:'yyyy-MM-dd' }}</td>
+        <td>{{ cust.gender }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm p-0 me-1" style="width:24px; height:24px;" title="Edit">
+            <i class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i>
+          </button>
+          <button class="btn btn-danger btn-sm p-0" style="width:24px; height:24px;" (click)="deleteCustomer(cust.id)"
+                  title="Delete">
+            <i class="bi bi-trash-fill" style="font-size: 0.8rem;"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

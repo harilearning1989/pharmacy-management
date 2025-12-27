@@ -51,6 +51,12 @@ ng g c components/supplier -m modules/supplier
 
 ng g i models/Customer
 ng g i models/Medicine
+ng g i models/Stock
+ng g c components/StockForm
+
+ng g s services/stock
+npm install @ng-bootstrap/ng-bootstrap@13
+
 
 
 

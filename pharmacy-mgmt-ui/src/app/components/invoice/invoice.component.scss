@@ -1,0 +1,24 @@
+.invoice-header {
+  background-color: #DCDCDC;   // exact from image
+  height: 48px;                // matches image header height
+  padding: 0 16px;
+  display: flex;
+  align-items: center;         // vertical align center
+  border: 1px solid #ccc; /* optional: for visible border */
+}
+
+.invoice-header span {
+  color: #070606;
+  font-size: 15px;             // image font size
+  font-weight: 600;
+  line-height: 1;              // tight like image
+}
+
+.div-bottom-radius {
+  border-top-left-radius: 0;    /* top left corner sharp */
+  border-top-right-radius: 0;   /* top right corner sharp */
+  border-bottom-left-radius: 8px; /* adjust as needed */
+  border-bottom-right-radius: 8px; /* adjust as needed */
+  border: 1px solid #ccc; /* optional: for visible border */
+}
+

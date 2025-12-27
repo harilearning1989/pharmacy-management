@@ -1,0 +1,91 @@
+.table-sm th,
+.table-sm td {
+  font-size: 0.85rem; /* smaller, professional font */
+}
+
+.table-hover-row:hover {
+  background-color: #f1f3f5; /* subtle hover effect */
+  cursor: pointer;
+}
+
+.table-bordered th,
+.table-bordered td {
+  vertical-align: middle; /* center content vertically */
+  text-align: center;
+}
+
+.table-responsive::-webkit-scrollbar {
+  width: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9; /* light gray */
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: #ffffff; /* white */
+}
+
+.compact-table th,
+.compact-table td {
+  font-size: 0.7rem;       /* smaller font */
+  padding: 0.2rem 0.3rem;  /* very tight padding */
+  line-height: 1;           /* minimize height */
+  vertical-align: middle;
+}
+
+/* Sticky header with slightly larger font */
+.sticky-header th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: gray;
+  font-size: 0.85rem;     /* slightly larger than body */
+  padding: 0.5rem 0.6rem; /* more readable */
+  text-align: center;
+}
+
+/*input.form-control-sm {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+}*/
+
+/* Search box */
+.form-control-sm {
+  font-size: 0.8rem;
+  height: 32px;
+}
+
+/* Fixed-size action buttons */
+.action-btn {
+  width: 36px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn i {
+  font-size: 0.9rem;
+}
+
+/* Expired - Red */
+.expired-row td {
+  background-color: #f8d7da !important;
+}
+
+/* Near expiry (≤ 7 days) - Yellow */
+.near-expiry-row td {
+  background-color: #fff3cd !important;
+}
+
+/* Keep hover effect */
+.table-hover-row:hover td {
+  filter: brightness(0.97);
+}

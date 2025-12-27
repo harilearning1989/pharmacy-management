@@ -10,7 +10,6 @@ import {CustomerService} from "../../services/customer.service";
 export class CustomerComponent implements OnInit {
 
   customers: Customer[] = [];
-  totalItems = 0;
   searchText: string = '';
 
   constructor(private customerService: CustomerService) {
