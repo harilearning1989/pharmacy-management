@@ -49,6 +49,9 @@ ng g c components/return -m modules/return
 ng g m modules/supplier --routing
 ng g c components/supplier -m modules/supplier
 
+ng g m modules/sales --routing
+ng g c components/sales -m modules/sales
+
 ng g i models/Customer
 ng g i models/Medicine
 ng g i models/Stock

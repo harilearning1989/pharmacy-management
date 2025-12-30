@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="invoice-header d-flex align-items-center justify-content-between px-3 py-2">
+    <div class="d-flex align-items-center">
+      <div class="icon-box-a me-3">A</div>
+      <span class="fw-bold text-white">Invoice # INV-202300458</span>
+    </div>
+
+    <div class="text-white mx-2">
+      Date: 24/04/2023 10:15 AM
+    </div>
+
+    <div class="text-white mx-2">
+      Logged in as: <span class="fw-bold">John (Pharmacist)</span>
+    </div>
+
+    <div class="d-flex align-items-center">
+      <label class="text-white me-2 mb-0">Sale Type:</label>
+      <select class="form-select form-select-sm sale-dropdown">
+        <option value="cash">Cash</option>
+        <option value="credit">Credit</option>
+        <option value="card">Card</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div class="card mb-2 shadow-sm">
+    <div class="card-header d-flex align-items-center py-1">
+      <div class="icon-box me-2">B</div>
+      <span>Customer / Patient Details</span>
+    </div>
+
+    <div class="card-body g-3 align-items-end">
+      <div class="col-md-8 position-relative">
+        <div class="d-flex align-items-center gap-3">
+          <div class="col-md-8 d-flex gap-3">
+            <!-- Customer Name Search -->
+            <div class="position-relative flex-grow-1">
+              <div class="d-flex align-items-center gap-2">
+                <label class="form-label fw-semibold mb-0" style="font-size: 12px; white-space: nowrap;">
+                  Customer Name
+                </label>
+                <div class="input-group shadow-sm" style="height: 30px; width: 250px;">
+                  <span class="input-group-text bg-white" style="height: 30px;">
+                    <i class="bi bi-search"></i>
+                  </span>
+                  <input type="text" class="form-control custom-input"
+                         placeholder="Search name..." [value]="searchName" (input)="onNameChange($event)"
+                         (focus)="activeInput='name'"/>
+                </div>
+              </div>
+
+              <div class="list-group shadow autocomplete-box" *ngIf="customers.length && activeInput==='name'">
+                <button type="button" class="list-group-item list-group-item-action custom-item"
+                        *ngFor="let customer of customers" (click)="selectCustomer(customer)">
+                  <div class="fw-semibold">{{ customer.name }}</div>
+                  <small class="text-muted">{{ customer.phone }} · {{ customer.email }}</small>
+                </button>
+              </div>
+            </div>
+
+            <!-- Phone Search -->
+            <div class="position-relative flex-grow-1">
+              <div class="d-flex align-items-center gap-2">
+                <label class="form-label fw-semibold mb-0" style="font-size:12px; white-space:nowrap;">
+                  Phone
+                </label>
+
+                <div class="input-group shadow-sm" style="height: 30px; width: 250px;">
+                  <span class="input-group-text bg-white" style="height: 30px;">
+                    <i class="bi bi-telephone"></i></span>
+                  <input type="tel" class="form-control custom-input"
+                         placeholder="Search name..." [value]="searchPhone" (input)="onPhoneChange($event)"
+                         (focus)="activeInput='phone'"/>
+                </div>
+              </div>
+
+              <!-- Phone autocomplete dropdown -->
+              <div class="list-group shadow autocomplete-box" *ngIf="customers.length && activeInput==='phone'">
+                <button type="button" class="list-group-item list-group-item-action custom-item"
+                        *ngFor="let customer of customers" (click)="selectCustomer(customer)">
+                  <div class="fw-semibold">{{ customer.name }}</div>
+                  <small class="text-muted">{{ customer.phone }} · {{ customer.email }}</small>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row mt-3 align-items-center customer-details" *ngIf="selectedCustomer">
+          <div class="col-md-3 text-nowrap text-primary">👤 {{ selectedCustomer.name }}</div>
+          <div class="col-md-3 text-nowrap">📧 {{ selectedCustomer.email }}</div>
+          <div class="col-md-2 text-nowrap">📞 {{ selectedCustomer.phone }}</div>
+          <div class="col-md-2 text-nowrap">⚥ {{ selectedCustomer.gender }}</div>
+          <div class="col-md-2 text-nowrap">🎂 {{ selectedCustomer.dob }}</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div class="card mb-2 shadow-sm">
+    <div class="card-header d-flex align-items-center py-1">
+      <div class="icon-box me-2">C</div>
+      <span>Add Medicines</span>
+    </div>
+    <div class="card-body">
+
+    </div>
+  </div>
+</div>
+

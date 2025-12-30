@@ -20,4 +20,30 @@ export class CustomerService {
   deleteCustomer(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+
+  searchByName(name: string): Observable<Customer> {
+    return this.http.get<Customer>(`${this.baseUrl}/search/name/${name}`);
+  }
+
+  searchByPhone(phone: string): Observable<Customer> {
+    return this.http.get<Customer>(`${this.baseUrl}/search/phone/${phone}`);
+  }
+
+  searchCustomerByName(name: string): Observable<Customer[]> {
+    return this.http.get<Customer[]>(
+      `${this.baseUrl}/search?name=${name}`
+    );
+  }
+
+  searchCustomerByPhone(phone: string): Observable<Customer[]> {
+    return this.http.get<Customer[]>(
+      `${this.baseUrl}/search?phone=${phone}`
+    );
+  }
+
+  searchCustomers(payload: any) {
+    return this.http.post('/api/customers/search', payload);
+  }
+
+
 }

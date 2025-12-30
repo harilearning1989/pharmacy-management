@@ -17,10 +17,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
+  {
+    path: 'sales',
+    loadChildren: () =>
+      import('./modules/sales/sales.module').then(m => m.SalesModule)
+  },
   {path: '', redirectTo: 'auth/login', pathMatch: 'full'},
   {path: '**', redirectTo: 'auth/login'}
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

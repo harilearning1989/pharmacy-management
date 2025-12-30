@@ -57,6 +57,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('../supplier/supplier.module').then(m => m.SupplierModule)
       },
+      {
+        path: 'sales',
+        loadChildren: () =>
+          import('../sales/sales.module').then(m => m.SalesModule)
+      },
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
     ]
   } // default dashboard route

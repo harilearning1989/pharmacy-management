@@ -1,0 +1,116 @@
+
+.invoice-header {
+  background-color: #3366bb;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+}
+
+.icon-box-a {
+  background-color: #ffffff;
+  color: #3366bb;
+  font-weight: bold;
+  width: 28px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.sale-dropdown {
+  width: 150px;
+  border-radius: 2px;
+  padding: 2px 4px;
+  font-size: 11px;
+}
+
+.sale-dropdown:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+.icon-box {
+  background-color: #3366bb;
+  color: white;
+  font-weight: bold;
+  width: 28px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.card-header {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  background-color: #e2e8f0;
+  font-size: 12px;
+}
+/*
+input::placeholder {
+  color: #6c757d;
+  font-size: 12px;
+}
+
+input,select {
+  height: 30px;
+}
+
+.btn-equal {
+  height: 30px;               !* Same as Bootstrap input height *!
+  display: flex;
+  align-items: center;        !* Vertical center *!
+  justify-content: center;    !* Horizontal center *!
+  white-space: nowrap;
+  font-size: 12px;
+  background-color: #e2e8f0;
+}
+
+label {
+  white-space: nowrap;
+  font-size: 12px;
+}
+*/
+
+
+.custom-input {
+  height: 30px !important;
+  background-color: #e2e8f0;
+}
+.custom-input::placeholder {
+  font-size: 12px;
+}
+
+/* Autocomplete dropdown */
+.autocomplete-box {
+  width: 80%;
+  max-height: 150px;
+  overflow-y: auto;
+  border-radius: 1rem;
+  font-size: 12px;
+}
+
+/* Dropdown items */
+.custom-item {
+  cursor: pointer;
+  padding: 0.5rem 1rem !important;
+  background-color: #e2e8f0;
+}
+
+.custom-item:hover {
+  background-color: #f8f9fa !important;
+}
+
+.customer-details{
+  font-size: 12px;
+  background-color: #e2e8f0;
+  width: 100%;
+  height: 30px;
+  border-radius: 4px;
+}
+
+
