@@ -1,6 +1,7 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {CustomerService} from "../../services/customer.service";
-import {Customer} from "../../models/customer";
+import {allCustomers, Customer} from "../../models/customer";
+import {Medicine, medicines} from "../../models/medicine";
 
 @Component({
   selector: 'app-sales',
@@ -28,90 +29,6 @@ export class SalesComponent implements OnInit {
       this.customers = [];
     }
   }
-
-  allCustomers: Customer[] = [
-    {
-      id: 1,
-      name: 'Amit Kumar',
-      email: 'amit.kumar@gmail.com',
-      phone: '9876543210',
-      gender: 'Male',
-      dob: '15-08-1990'
-    },
-    {
-      id: 2,
-      name: 'Anil Sharma',
-      email: 'anil.sharma@gmail.com',
-      phone: '9123456789',
-      gender: 'Male',
-      dob: '22-01-1988'
-    },
-    {
-      id: 3,
-      name: 'Anjali Singh',
-      email: 'anjali.singh@gmail.com',
-      phone: '9988776655',
-      gender: 'Female',
-      dob: '10-11-1992'
-    },
-    {
-      id: 4,
-      name: 'Rahul Verma',
-      email: 'rahul.verma@gmail.com',
-      phone: '9012345678',
-      gender: 'Male',
-      dob: '05-03-1987'
-    },
-    {
-      id: 5,
-      name: 'Ravi Patel',
-      email: 'ravi.patel@gmail.com',
-      phone: '9090909090',
-      gender: 'Male',
-      dob: '18-07-1991'
-    },
-    {
-      id: 6,
-      name: 'Sunita Rao',
-      email: 'sunita.rao@gmail.com',
-      phone: '9345678123',
-      gender: 'Female',
-      dob: '30-09-1989'
-    },
-    {
-      id: 7,
-      name: 'Suresh Reddy',
-      email: 'suresh.reddy@gmail.com',
-      phone: '9871203456',
-      gender: 'Male',
-      dob: '12-12-1985'
-    },
-    {
-      id: 8,
-      name: 'Priya Mehta',
-      email: 'priya.mehta@gmail.com',
-      phone: '9567891234',
-      gender: 'Female',
-      dob: '25-04-1993'
-    },
-    {
-      id: 9,
-      name: 'Pooja Nair',
-      email: 'pooja.nair@gmail.com',
-      phone: '9786543211',
-      gender: 'Female',
-      dob: '08-06-1990'
-    },
-    {
-      id: 10,
-      name: 'Alisha Khan',
-      email: 'alisha.khan@gmail.com',
-      phone: '9998887776',
-      gender: 'Female',
-      dob: '14-02-1994'
-    }
-  ];
-
 
   selectedMedicine = {
     name: 'Paracetamol 500mg',
@@ -161,6 +78,8 @@ export class SalesComponent implements OnInit {
   searchName: string = '';
   searchPhone: string = '';
   selectedCustomer: Customer | null = null;
+  selectedMedicineTmp: (Medicine & { qty?: number; totalPrice?: number }) | null = null;
+
 
   selectCustomer(customer: any) {
     this.selectedCustomer = customer;
@@ -208,10 +127,58 @@ export class SalesComponent implements OnInit {
       },
       error: () => {
         //this.customers = [];
-        this.customers = this.allCustomers.filter(c =>
+        this.customers = allCustomers.filter(c =>
           c.phone.includes(this.searchPhone))
       }
     });
+  }
+
+
+  searchText = '';
+  qty = 1;
+
+  mrp = 150.00;
+  stock = 120;
+  expiry = '2023-08-15';
+
+  filteredMedicines: Medicine[] = [];
+
+  onSearch() {
+    this.filteredMedicines = this.searchText
+      ? medicines.filter(m =>
+        m.name.toLowerCase().includes(this.searchText.toLowerCase())
+      )
+      : [];
+  }
+
+  selectMedicine(medicine: Medicine) {
+    this.searchText = medicine.name;
+    this.filteredMedicines = [];
+    this.selectedMedicineTmp = medicine;
+    this.selectedMedicineTmp = {
+      ...medicine,
+      qty: 1,   // 👈 THIS is mandatory
+      totalPrice: medicine.price   // qty(1) * price
+    };
+  }
+
+  onQtyChange(qty: number) {
+    if (!this.selectedMedicineTmp) {
+      return;
+    }
+
+    const stock = this.selectedMedicineTmp.stock;
+
+    if (!qty || qty < 1) {
+      qty = 1;
+    }
+
+    if (qty > stock) {
+      qty = stock;
+    }
+
+    this.selectedMedicineTmp.qty = qty;
+    this.selectedMedicineTmp.totalPrice = qty * this.selectedMedicineTmp.price;
   }
 
 }

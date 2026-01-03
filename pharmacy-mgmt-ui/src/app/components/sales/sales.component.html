@@ -41,8 +41,8 @@
                 <label class="form-label fw-semibold mb-0" style="font-size: 12px; white-space: nowrap;">
                   Customer Name
                 </label>
-                <div class="input-group shadow-sm" style="height: 30px; width: 250px;">
-                  <span class="input-group-text bg-white" style="height: 30px;">
+                <div class="input-group shadow-sm" style="height: 25px; width: 250px;">
+                  <span class="input-group-text bg-white" style="height: 25px;">
                     <i class="bi bi-search"></i>
                   </span>
                   <input type="text" class="form-control custom-input"
@@ -67,8 +67,8 @@
                   Phone
                 </label>
 
-                <div class="input-group shadow-sm" style="height: 30px; width: 250px;">
-                  <span class="input-group-text bg-white" style="height: 30px;">
+                <div class="input-group shadow-sm" style="height: 25px; width: 250px;">
+                  <span class="input-group-text bg-white" style="height: 25px;">
                     <i class="bi bi-telephone"></i></span>
                   <input type="tel" class="form-control custom-input"
                          placeholder="Search name..." [value]="searchPhone" (input)="onPhoneChange($event)"
@@ -109,7 +109,76 @@
       <span>Add Medicines</span>
     </div>
     <div class="card-body">
-
+      <!-- ROW 1 : SEARCH -->
+      <div class="row mb-3">
+        <div class="col-md-4 position-relative">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control custom-input"
+                   placeholder="Search by Name, Batch No..." [(ngModel)]="searchText"
+                   (input)="onSearch()"/>
+            <span class="input-group-text bg-white" style="height: 25px;">
+              <i class="bi bi-search"></i>
+            </span>
+          </div>
+          <!-- AUTOCOMPLETE -->
+          <div class="list-group shadow medicine-autocomplete-box" *ngIf="filteredMedicines.length">
+            <button type="button" class="list-group-item list-group-item-action custom-item"
+                    *ngFor="let med of filteredMedicines" (click)="selectMedicine(med)">
+              <div class="fw-semibold">{{ med.name }}</div>
+              <small class="text-muted">{{ med.batchNumber }} · {{ med.batchNumber }}</small>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row mt-3 align-items-center medicine-details" *ngIf="selectedMedicineTmp">
+          <div class="col">
+            <div class="input-group input-group-sm">
+              <span class="input-group-text input-height">Qty</span>
+              <input type="number" class="form-control input-height"
+                [(ngModel)]="selectedMedicineTmp.qty" min="1" [max]="selectedMedicineTmp.stock" step="1"
+                (ngModelChange)="onQtyChange($event)">
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group input-group-sm">
+              <span class="input-group-text input-height">MG</span>
+              <input class="form-control custom-input" [value]="selectedMedicineTmp.mg" readonly>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group input-group-sm">
+              <span class="input-group-text input-height">MRP</span>
+              <input class="form-control custom-input" [value]="selectedMedicineTmp.price" readonly>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group input-group-sm">
+              <span class="input-group-text input-height">Total</span>
+              <input class="form-control custom-input" [value]="selectedMedicineTmp.totalPrice" readonly>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group input-group-sm">
+              <label class="input-group-text input-height">Stock</label>
+              <input class="form-control custom-input" [value]="selectedMedicineTmp.stock" readonly>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group input-group-sm">
+              <span class="input-group-text input-height">Expiry</span>
+              <input class="form-control custom-input" [value]="selectedMedicineTmp.expiryDate">
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group input-group-sm">
+              <button class="btn btn-primary btn-sm w-100 input-height">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
