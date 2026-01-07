@@ -22,6 +22,7 @@ export const medicines = [
     expiryDate: '2025-11-15',
     price: 5,
     stock: 60,
+    qty: 1,
     prescriptionRequired: true,
     createdAt: '2024-02-05T09:30:00Z',
     updatedAt: '2024-06-10T14:20:00Z'
@@ -32,7 +33,7 @@ export const medicines = [
     brand: 'Dr Reddy’s',
     mg: '10mg',
     batchNumber: 'BATCH003',
-    expiryDate: '2026-01-20',
+    expiryDate: '2026-01-10',
     price: 4,
     stock: 200,
     qty: 2,
@@ -49,6 +50,7 @@ export const medicines = [
     expiryDate: '2027-05-10',
     price: 10,
     stock: 85,
+    qty: 1,
     prescriptionRequired: true,
     createdAt: '2024-03-01T08:45:00Z',
     updatedAt: '2024-06-12T10:10:00Z'
@@ -76,6 +78,7 @@ export const medicines = [
     expiryDate: '2025-12-05',
     price: 5,
     stock: 40,
+    qty: 1,
     prescriptionRequired: true,
     createdAt: '2024-01-28T10:20:00Z',
     updatedAt: '2024-06-15T15:30:00Z'
@@ -89,6 +92,7 @@ export const medicines = [
     expiryDate: '2027-02-14',
     price: 7,
     stock: 95,
+    qty: 1,
     prescriptionRequired: false,
     createdAt: '2024-03-10T09:00:00Z',
     updatedAt: '2024-06-11T11:25:00Z'
@@ -116,6 +120,7 @@ export const medicines = [
     expiryDate: '2026-10-18',
     price: 5,
     stock: 300,
+    qty: 1,
     prescriptionRequired: false,
     createdAt: '2024-01-05T08:00:00Z',
     updatedAt: '2024-05-30T10:00:00Z'
@@ -129,6 +134,7 @@ export const medicines = [
     expiryDate: '2025-08-25',
     price: 3,
     stock: 25,
+    qty: 1,
     prescriptionRequired: true,
     createdAt: '2024-03-18T12:40:00Z',
     updatedAt: '2024-06-16T18:00:00Z'
@@ -144,7 +150,7 @@ export interface Medicine {
   expiryDate: string; // ISO date string
   price: number;
   stock: number;
-  qty?: number;   // 👈 optional
+  qty: number;   // 👈 optional
   totalPrice?: number;
   prescriptionRequired: boolean;
   createdAt: string;

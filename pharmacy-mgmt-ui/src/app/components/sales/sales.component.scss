@@ -50,31 +50,6 @@
   background-color: #e2e8f0;
   font-size: 12px;
 }
-/*
-input::placeholder {
-  color: #6c757d;
-  font-size: 12px;
-}
-
-input,select {
-  height: 30px;
-}
-
-.btn-equal {
-  height: 30px;               !* Same as Bootstrap input height *!
-  display: flex;
-  align-items: center;        !* Vertical center *!
-  justify-content: center;    !* Horizontal center *!
-  white-space: nowrap;
-  font-size: 12px;
-  background-color: #e2e8f0;
-}
-
-label {
-  white-space: nowrap;
-  font-size: 12px;
-}
-*/
 
 .input-height {
   height: 25px !important;
@@ -133,10 +108,9 @@ label {
   border-radius: 4px;
 }
 
-
 .form-control,
 .btn {
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .form-label {
@@ -147,4 +121,99 @@ label {
   box-shadow: 0 0 6px rgba(0,0,0,0.05);
 }
 
+/* Table outer border */
+.cart-table {
+  border: 1px solid #d1d5db; /* darker border */
+  font-size: 11px;
+}
+
+/* ================= HEADER (KEEP AS IS) ================= */
+.cart-table thead th {
+  background-color: #e2e8f0;
+  text-align: center;
+}
+
+/* ================= BODY ROW HEIGHT FIX ================= */
+.cart-table tbody td {
+  padding: 2px 6px !important;   /* main height control */
+  font-size: 11px;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+  text-align: center;
+}
+
+/* Remove Bootstrap enforced spacing */
+.cart-table tbody td * {
+  margin: 0 !important;
+}
+
+/* Fix switch forcing height */
+.form-switch {
+  min-height: unset !important;
+  padding-left: 2.2em !important;
+}
+
+.form-switch .form-check-input {
+  width: 28px !important;
+  height: 14px !important;
+  margin: 0 !important;
+}
+
+/* Fix button height */
+.btn-icon {
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+/* Prevent flex from stretching row */
+.cart-table tbody .d-flex {
+  align-items: center;
+}
+
+/* OPTIONAL: force exact row height */
+.cart-table tbody tr {
+  height: 28px;
+}
+
+/*Payment Summary CSS*/
+
+.payment-summary {
+  font-size: 11px;
+  color: #1f2937;
+}
+
+/* Left column border */
+.payment-summary .border-end {
+  border-color: #e5e7eb !important;
+}
+
+/* Grand total emphasis */
+.payment-summary .border-top {
+  border-color: #e5e7eb !important;
+}
+
+/* Payment method spacing */
+.payment-method {
+  font-size: 11px;
+}
+
+.payment-method .form-check-input {
+  margin-top: 0.2rem;
+}
+
+/* Process button */
+.process-btn {
+  padding: 8px 20px;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+/* Table row */
+.table-danger {
+  background-color: #f8d7da;
+}
+
+.table-warning {
+  background-color: #fff3cd;
+}
 

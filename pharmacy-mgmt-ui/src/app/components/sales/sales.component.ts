@@ -2,6 +2,7 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {CustomerService} from "../../services/customer.service";
 import {allCustomers, Customer} from "../../models/customer";
 import {Medicine, medicines} from "../../models/medicine";
+import {SaleService} from "../../services/sale.service";
 
 @Component({
   selector: 'app-sales',
@@ -10,13 +11,35 @@ import {Medicine, medicines} from "../../models/medicine";
 })
 export class SalesComponent implements OnInit {
 
-  constructor(private customerService: CustomerService) {
-  }
-
   ngOnInit(): void {
   }
 
+  paymentMethod = 'CASH';
+
   activeInput: 'name' | 'phone' | null = null;
+  cartItems: Medicine[] = [];
+  customers: Customer[] = [];
+  searchName: string = '';
+  searchPhone: string = '';
+  selectedCustomer: Customer | null = null;
+  selectedMedicineTmp: (Medicine & { qty?: number; totalPrice?: number }) | null = null;
+  searchText = '';
+  stock = 120;
+  expiry = '2023-08-15';
+
+  filteredMedicines: Medicine[] = [];
+
+  // ===== PAYMENT SUMMARY VALUES =====
+  subtotal = 0;
+  discount = 0;
+  gst = 0;
+  grandTotal = 0;
+
+  GST_PERCENT = 5; // example 5%
+
+  constructor(private customerService: CustomerService,
+              private saleService: SaleService) {
+  }
 
   // ✅ Close dropdown when clicking outside
   @HostListener('document:click', ['$event'])
@@ -29,57 +52,6 @@ export class SalesComponent implements OnInit {
       this.customers = [];
     }
   }
-
-  selectedMedicine = {
-    name: 'Paracetamol 500mg',
-    batch: 'BATCH123',
-    expiry: '15/08/2026',
-    mrp: 150,
-    stock: 120
-  };
-
-  quantity = 1;
-  cart: any[] = [];
-
-  subtotal = 0;
-  tax = 0;
-  grandTotal = 0;
-
-  addToCart() {
-    const total = this.selectedMedicine.mrp * this.quantity;
-    this.cart.push({
-      name: this.selectedMedicine.name,
-      batch: this.selectedMedicine.batch,
-      expiry: this.selectedMedicine.expiry,
-      qty: this.quantity,
-      price: this.selectedMedicine.mrp,
-      discount: 0,
-      total
-    });
-    this.calculateTotals();
-  }
-
-  removeItem(index: number) {
-    this.cart.splice(index, 1);
-    this.calculateTotals();
-  }
-
-  calculateTotals() {
-    this.subtotal = this.cart.reduce((sum, i) => sum + i.total, 0);
-    this.tax = this.subtotal * 0.05;
-    this.grandTotal = this.subtotal + this.tax;
-  }
-
-  processSale() {
-    alert('Sale processed successfully');
-  }
-
-  customers: Customer[] = [];
-  searchName: string = '';
-  searchPhone: string = '';
-  selectedCustomer: Customer | null = null;
-  selectedMedicineTmp: (Medicine & { qty?: number; totalPrice?: number }) | null = null;
-
 
   selectCustomer(customer: any) {
     this.selectedCustomer = customer;
@@ -133,16 +105,6 @@ export class SalesComponent implements OnInit {
     });
   }
 
-
-  searchText = '';
-  qty = 1;
-
-  mrp = 150.00;
-  stock = 120;
-  expiry = '2023-08-15';
-
-  filteredMedicines: Medicine[] = [];
-
   onSearch() {
     this.filteredMedicines = this.searchText
       ? medicines.filter(m =>
@@ -154,7 +116,6 @@ export class SalesComponent implements OnInit {
   selectMedicine(medicine: Medicine) {
     this.searchText = medicine.name;
     this.filteredMedicines = [];
-    this.selectedMedicineTmp = medicine;
     this.selectedMedicineTmp = {
       ...medicine,
       qty: 1,   // 👈 THIS is mandatory
@@ -180,5 +141,130 @@ export class SalesComponent implements OnInit {
     this.selectedMedicineTmp.qty = qty;
     this.selectedMedicineTmp.totalPrice = qty * this.selectedMedicineTmp.price;
   }
+
+
+  // ADD TO CART (PREVENT DUPLICATE BATCH)
+  addToCart() {
+    if (!this.selectedMedicineTmp || !this.selectedMedicineTmp.qty) return;
+
+    const med = this.selectedMedicineTmp;
+
+    // 🔁 Check existing batch
+    const existing = this.cartItems.find(
+      item => item.batchNumber === med.batchNumber
+    );
+
+    if (existing) {
+      // ✅ Increment quantity
+      existing.qty = (existing.qty ?? 0) + med.qty;
+
+      // ✅ Recalculate total
+      existing.totalPrice =
+        existing.qty * existing.price;
+    } else {
+      // ✅ Add new item
+      this.cartItems.push({
+        ...med,
+        qty: med.qty,
+        totalPrice: med.qty * med.price
+      });
+    }
+
+    this.calculateSummary();
+    // 🧹 Clear Add Medicine section
+    this.selectedMedicineTmp = null;
+    this.searchText = '';
+    this.filteredMedicines = [];
+  }
+
+  // Remove item
+  removeItem(index: number) {
+    this.cartItems.splice(index, 1);
+    this.calculateSummary();
+  }
+
+  // ===== PAYMENT SUMMARY CALCULATION =====
+  calculateSummary() {
+    this.subtotal = this.cartItems.reduce(
+      (sum, item) => sum + (item.totalPrice ?? 0),
+      0
+    );
+
+    // Example: flat discount or change logic
+    this.discount = this.subtotal > 300 ? 15 : 0;
+
+    this.gst = (this.subtotal - this.discount) * this.GST_PERCENT / 100;
+
+    this.grandTotal =
+      this.subtotal - this.discount + this.gst;
+  }
+
+  // 🔥 PROCESS SALE CLICK
+  processSale() {
+
+    if (!this.selectedCustomer || !this.cartItems.length) {
+      alert('Customer or cart is empty');
+      return;
+    }
+
+    const payload = {
+      customerId: this.selectedCustomer.id,
+
+      items: this.cartItems.map(item => ({
+        medicineId: item.id,
+        batchNumber: item.batchNumber,
+        qty: item.qty!,
+        price: item.price,
+        total: item.totalPrice!
+      })),
+
+      subtotal: this.subtotal,
+      discount: this.discount,
+      gst: this.gst,
+      grandTotal: this.grandTotal,
+      paymentMethod: this.paymentMethod
+    };
+
+    this.saleService.saveSale(payload).subscribe({
+      next: () => {
+        alert('Sale completed successfully');
+
+        // 🧹 CLEAR EVERYTHING AFTER SAVE
+        this.cartItems = [];
+        this.selectedCustomer = null;
+        this.selectedMedicineTmp = null;
+
+        this.subtotal = 0;
+        this.discount = 0;
+        this.gst = 0;
+        this.grandTotal = 0;
+      },
+      error: err => {
+        console.error(err);
+        alert('Failed to process sale');
+      }
+    });
+  }
+
+getExpiryClass(expiryDate: string): string {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const expDate = new Date(expiryDate);
+  expDate.setHours(0, 0, 0, 0);
+
+  const diffInDays =
+    (expDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24);
+
+  if (diffInDays < 0) {
+    return 'table-danger'; // expired → red
+  }
+
+  if (diffInDays <= 7) {
+    return 'table-warning'; // expiring within a week → yellow
+  }
+
+  return ''; // normal
+}
 
 }
