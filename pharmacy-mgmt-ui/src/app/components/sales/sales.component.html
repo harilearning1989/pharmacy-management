@@ -46,7 +46,7 @@
                     <i class="bi bi-search"></i>
                   </span>
                   <input type="text" class="form-control custom-input"
-                         placeholder="Search name..." [value]="searchName" (input)="onNameChange($event)"
+                         placeholder="Search customer..." [value]="searchCustomerName" (input)="onCustomerNameChange($event)"
                          (focus)="activeInput='name'"/>
                 </div>
               </div>
@@ -114,8 +114,8 @@
         <div class="col-md-4 position-relative">
           <div class="input-group input-group-sm">
             <input type="text" class="form-control custom-input"
-                   placeholder="Search by Name, Batch No..." [(ngModel)]="searchText"
-                   (input)="onSearch()"/>
+                   placeholder="Search by Name, Batch No..." [(ngModel)]="searchMedicineName"
+                   (input)="onSearchMedicine()"/>
             <span class="input-group-text bg-white" style="height: 25px;">
               <i class="bi bi-search"></i>
             </span>
@@ -136,7 +136,7 @@
             <div class="input-group input-group-sm">
               <span class="input-group-text input-height">Qty</span>
               <input type="number" class="form-control input-height"
-                     [(ngModel)]="selectedMedicineTmp.qty" min="1" [max]="selectedMedicineTmp.stock" step="1"
+                     [(ngModel)]="selectedMedicineTmp.quantity" min="1" [max]="selectedMedicineTmp.stock" step="1"
                      (ngModelChange)="onQtyChange($event)">
             </div>
           </div>
@@ -174,7 +174,7 @@
           <div class="col">
             <div class="input-group input-group-sm">
               <button class="btn btn-primary btn-sm w-100 input-height" (click)="addToCart()"
-                      [disabled]="!selectedMedicineTmp?.qty">
+                      [disabled]="!selectedMedicineTmp?.quantity">
                 Add
               </button>
             </div>
@@ -213,7 +213,7 @@
             <td class="fw-semibold">{{ item.name }}</td>
             <td>{{ item.mg }}</td>
             <td>{{ item.expiryDate }}</td>
-            <td>{{ item.qty }}</td>
+            <td>{{ item.quantity }}</td>
             <td>{{ item.price | number:'1.2-2' }}</td>
             <td>0%</td>
             <td class="fw-semibold">
@@ -251,7 +251,7 @@
           <div class="p-3">
             <div class="d-flex justify-content-between mb-2">
               <span>Subtotal:</span>
-              <span class="fw-semibold">{{ subtotal | currency:'INR' }}</span>
+              <span class="fw-semibold">{{ subTotal | currency:'INR' }}</span>
             </div>
 
             <div class="d-flex justify-content-between mb-2 border-top">

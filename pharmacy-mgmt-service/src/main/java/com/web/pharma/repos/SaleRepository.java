@@ -28,11 +28,17 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
     // Customer based
     List<Sale> findByCustomerId(Long customerId);
 
-    @Query("""
+   /* @Query("""
                 SELECT COALESCE(SUM(s.totalAmount),0)
                 FROM Sale s
                 WHERE s.saleDate BETWEEN :start AND :end
             """)
-    BigDecimal getTotalSales(LocalDateTime start, LocalDateTime end);
+    BigDecimal getTotalSales(LocalDateTime start, LocalDateTime end);*/
+
+    @Query("SELECT COALESCE(SUM(s.grandTotal), 0) " +
+            "FROM Sale s " +
+            "WHERE s.saleDate BETWEEN :start AND :end")
+    BigDecimal calculateTotalSales(@Param("start") LocalDateTime start,
+                                   @Param("end") LocalDateTime end);
 
 }

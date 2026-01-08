@@ -1,0 +1,31 @@
+{
+  "customerId": 4,
+  "subTotal": 12,
+  "discount": 0,
+  "gst": 0.6,
+  "grandTotal": 12.6,
+  "paymentMethod": "CASH",
+  "items": [
+    {
+      "medicineId": 1,
+      "batchNumber": "BATCH001",
+      "quantity": 1,
+      "price": 2,
+      "total": 2
+    },
+    {
+      "medicineId": 2,
+      "batchNumber": "BATCH002",
+      "quantity": 1,
+      "price": 5,
+      "total": 5
+    },
+    {
+      "medicineId": 6,
+      "batchNumber": "BATCH006",
+      "quantity": 1,
+      "price": 5,
+      "total": 5
+    }
+  ]
+}

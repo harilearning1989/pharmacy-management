@@ -54,7 +54,7 @@ public class MedicineServiceImpl implements MedicineService {
         medicine.setBrand(dto.brand());
         medicine.setBatchNumber(dto.batchNumber());
         medicine.setExpiryDate(dto.expiryDate());
-        medicine.setPrice(dto.price());
+        medicine.setUnitPrice(dto.price());
         medicine.setStock(dto.stock());
         medicine.setPrescriptionRequired(dto.prescriptionRequired());
         return MedicineResponseDto.toDto(medicine);
@@ -95,7 +95,7 @@ public class MedicineServiceImpl implements MedicineService {
                 }
 
                 medicine.setExpiryDate(expiryDate);
-                medicine.setPrice(BigDecimal.valueOf(row.getCell(4).getNumericCellValue()));
+                medicine.setUnitPrice(BigDecimal.valueOf(row.getCell(4).getNumericCellValue()));
                 medicine.setStock((int) row.getCell(5).getNumericCellValue());
                 medicine.setPrescriptionRequired(row.getCell(6).getBooleanCellValue());
 
@@ -124,7 +124,7 @@ public class MedicineServiceImpl implements MedicineService {
             medicine.setBrand(brands[i % brands.length]);
             medicine.setBatchNumber("BATCH" + String.format("%04d", i + 1));
             medicine.setExpiryDate(LocalDate.now().plusMonths((i % 24) + 1)); // 1–24 months expiry
-            medicine.setPrice(BigDecimal.valueOf(20 + (i % 50) * 1.0)); // price 20–70
+            medicine.setUnitPrice(BigDecimal.valueOf(20 + (i % 50) * 1.0)); // price 20–70
             medicine.setStock(10 + (i % 100)); // stock 10–110
             medicine.setPrescriptionRequired(i % 3 == 0); // true for every 3rd medicine
 

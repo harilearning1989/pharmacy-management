@@ -33,7 +33,7 @@ public class SaleRestController {
 ]
   }*/
 
-    @Operation(
+    /*@Operation(
             summary = "Create a new sale",
             description = "Creates a new sale for the authenticated user."
     )
@@ -56,6 +56,31 @@ public class SaleRestController {
             @AuthenticationPrincipal UserDetails userDetails
     ) {
         return saleService.createSale(dto, userDetails.getUsername());
+    }*/
+
+    @Operation(
+            summary = "Create a new sale",
+            description = "Creates a new sale for the authenticated user."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Sale successfully created",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = SaleResponseDto.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Invalid sale data"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden")
+    })
+    @PostMapping
+    public SaleResponseDto createSaleMedicine(
+            @RequestBody SaleRequestDto dto,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        return saleService.createSaleMedicine(dto, userDetails.getUsername());
     }
 
     @Operation(

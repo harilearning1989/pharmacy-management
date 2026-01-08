@@ -104,6 +104,25 @@ public class GlobalExceptionHandler {
         return problem;
     }*/
 
+    /*@ExceptionHandler(CustomerNotFoundException.class)
+    public ProblemDetail handleCustomerNotFound(CustomerNotFoundException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle("Customer Not Found");
+        problemDetail.setDetail("Customer with ID " + ex.getCustomerId() + " does not exist.");
+        problemDetail.setType(URI.create("https://example.com/problems/customer-not-found"));
+        return problemDetail;
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ProblemDetail handleRuntimeException(RuntimeException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        problemDetail.setTitle("Internal Server Error");
+        problemDetail.setDetail(ex.getMessage());
+        problemDetail.setType(URI.create("https://example.com/problems/internal-error"));
+        return problemDetail;
+    }*/
+
+
 }
 
 

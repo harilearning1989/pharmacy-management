@@ -22,7 +22,7 @@ public record MedicineRequestDto(
                 .brand(dto.brand())
                 .batchNumber(dto.batchNumber())
                 .expiryDate(dto.expiryDate())
-                .price(dto.price())
+                .unitPrice(dto.price())
                 .stock(dto.stock())
                 .prescriptionRequired(dto.prescriptionRequired())
                 .build();

@@ -39,10 +39,10 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.errorMessage = null;
     this.router.navigate(['/home']);
-    /*this.authService.login(this.loginForm.value).subscribe({
+    this.authService.login(this.loginForm.value).subscribe({
       next: res => {
         this.tokenService.saveToken(res.token);
-        this.router.navigate(['/dashboard']);
+        //this.router.navigate(['/dashboard']);
       },
       error: err => {
         this.loading = false;
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
           this.errorMessage = 'Login failed. Please try again later.';
         }
       }
-    });*/
+    });
   }
 
   // Clean helper for template

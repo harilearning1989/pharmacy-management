@@ -7,13 +7,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "medicines")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
+@Table(name = "medicines")
 public class Medicine {
 
     @Id
@@ -30,7 +30,8 @@ public class Medicine {
     @Column(name = "expiry_date")
     private LocalDate expiryDate;
 
-    private BigDecimal price;
+    @Column(name = "PRICE")
+    private BigDecimal unitPrice;
 
     private int stock;
 

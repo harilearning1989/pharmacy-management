@@ -61,7 +61,7 @@ public class SaleHistoryServiceImpl implements SaleHistoryService {
                         s.getId(),
                         s.getCustomer().getName(),
                         s.getSoldBy().getUsername(),
-                        s.getTotalAmount(),
+                        s.getGrandTotal(),
                         s.getPaymentMethod(),
                         s.getSaleDate()
                 ))

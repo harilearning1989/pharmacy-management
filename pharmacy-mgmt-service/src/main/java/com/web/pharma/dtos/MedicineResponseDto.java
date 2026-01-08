@@ -22,7 +22,7 @@ public record MedicineResponseDto(
                 medicine.getBrand(),
                 medicine.getBatchNumber(),
                 medicine.getExpiryDate(),
-                medicine.getPrice(),
+                medicine.getUnitPrice(),
                 medicine.getStock(),
                 medicine.isPrescriptionRequired()
         );

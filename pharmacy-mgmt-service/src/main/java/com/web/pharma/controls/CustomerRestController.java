@@ -67,5 +67,30 @@ public class CustomerRestController {
     public ResponseEntity<List<CustomerDto>> getAll() {
         return ResponseEntity.ok(service.getAllCustomers());
     }
+
+    @GetMapping("/searchName")
+    @Operation(summary = "Search customers", description = "Search customers by name (min 3 characters, case-insensitive)")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Customers retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Search keyword must be at least 3 characters"),
+            @ApiResponse(responseCode = "403", description = "Forbidden, insufficient permissions")
+    })
+    public ResponseEntity<List<CustomerDto>> searchCustomerByName(
+            @RequestParam String name) {
+        return ResponseEntity.ok(service.searchCustomersByName(name));
+    }
+
+    @GetMapping("/searchPhone")
+    @Operation(summary = "Search customers", description = "Search customers by phone")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Customers retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Search keyword must be at least 3 characters"),
+            @ApiResponse(responseCode = "403", description = "Forbidden, insufficient permissions")
+    })
+    public ResponseEntity<List<CustomerDto>> searchCustomerByPhone(
+            @RequestParam String phone) {
+        return ResponseEntity.ok(service.searchCustomersByPhone(phone));
+    }
+
 }
 

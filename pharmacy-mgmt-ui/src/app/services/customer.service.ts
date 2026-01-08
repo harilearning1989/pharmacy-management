@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Customer} from "../models/customer";
+import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { Customer } from "../models/customer";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
 
-  private baseUrl = '/api/medicines'; // Replace with your API endpoint
+  private baseUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) {
   }
@@ -25,10 +26,6 @@ export class CustomerService {
     return this.http.get<Customer>(`${this.baseUrl}/search/name/${name}`);
   }
 
-  searchByPhone(phone: string): Observable<Customer> {
-    return this.http.get<Customer>(`${this.baseUrl}/search/phone/${phone}`);
-  }
-
   searchCustomerByName(name: string): Observable<Customer[]> {
     return this.http.get<Customer[]>(
       `${this.baseUrl}/search?name=${name}`
@@ -41,9 +38,16 @@ export class CustomerService {
     );
   }
 
-  searchCustomers(payload: any) {
-    return this.http.post('/api/customers/search', payload);
+  searchCustomers(name: string) {
+    return this.http.get<Customer[]>(`${this.baseUrl}customers/searchName`,
+      { params: { name } }
+    );
   }
 
+  searchByPhone(phone: string) {
+    return this.http.get<Customer[]>(`${this.baseUrl}customers/searchPhone`,
+      { params: { phone } }
+    );
+  }
 
 }

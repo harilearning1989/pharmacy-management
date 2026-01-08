@@ -9,4 +9,6 @@ public interface CustomerService {
     CustomerDto updateCustomer(Long id, CustomerDto dto);
     CustomerDto getCustomer(Long id);
     List<CustomerDto> getAllCustomers();
+    List<CustomerDto> searchCustomersByName(String name);
+    List<CustomerDto> searchCustomersByPhone(String phone);
 }

@@ -3,11 +3,11 @@ export interface SalePayload {
   items: {
     medicineId: number;
     batchNumber: string;
-    qty: number;
+    quantity: number;
     price: number;
     total: number;
   }[];
-  subtotal: number;
+  subTotal: number;
   discount: number;
   gst: number;
   grandTotal: number;

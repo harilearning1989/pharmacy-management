@@ -89,7 +89,7 @@ export class MedicineComponent implements OnInit {
         expiryDate: "2025-12-15",
         price: 5.99,
         stock: 100,
-        qty: 100,
+        quantity: 100,
         prescriptionRequired: false,
         createdAt: "2025-12-26T10:00:00Z",
         updatedAt: "2025-12-26T10:00:00Z",
