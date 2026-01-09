@@ -11,6 +11,7 @@ public record MedicineResponseDto(
         String brand,
         String batchNumber,
         LocalDate expiryDate,
+        Integer dosage,
         BigDecimal price,
         int stock,
         boolean prescriptionRequired
@@ -22,6 +23,7 @@ public record MedicineResponseDto(
                 medicine.getBrand(),
                 medicine.getBatchNumber(),
                 medicine.getExpiryDate(),
+                medicine.getDosageMg(),
                 medicine.getUnitPrice(),
                 medicine.getStock(),
                 medicine.isPrescriptionRequired()

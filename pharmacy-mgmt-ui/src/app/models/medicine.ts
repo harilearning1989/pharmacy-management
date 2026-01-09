@@ -1,4 +1,4 @@
-export const medicines = [
+/*export const medicines = [
   {
     id: 1,
     name: 'Paracetamol',
@@ -140,14 +140,14 @@ export const medicines = [
     updatedAt: '2024-06-16T18:00:00Z'
   }
 ];
-
+*/
 export interface Medicine {
   id: number;
   name: string;
-  mg?: string;
   brand: string;
   batchNumber: string;
   expiryDate: string; // ISO date string
+  dosage: number;
   price: number;
   stock: number;
   quantity: number;   // 👈 optional

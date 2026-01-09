@@ -107,6 +107,8 @@ CREATE TABLE medicines (
     name VARCHAR(255) NOT NULL,
     brand VARCHAR(100),
 
+    dosage_mg INTEGER CHECK (dosage_mg > 0), -- nullable
+
     batch_number VARCHAR(50) NOT NULL,
     expiry_date DATE NOT NULL,
 
@@ -118,18 +120,35 @@ CREATE TABLE medicines (
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    -- 🔒 Constraints
-    CONSTRAINT uq_medicines_batch UNIQUE (name, brand, batch_number),
+    CONSTRAINT uq_medicines_batch
+        UNIQUE (name, brand, dosage_mg, batch_number),
 
     CONSTRAINT chk_medicines_expiry
         CHECK (expiry_date > CURRENT_DATE)
 );
+
+CREATE UNIQUE INDEX uq_medicines_with_dosage
+ON medicines (name, brand, dosage_mg, batch_number)
+WHERE dosage_mg IS NOT NULL;
+
+CREATE UNIQUE INDEX uq_medicines_without_dosage
+ON medicines (name, brand, batch_number)
+WHERE dosage_mg IS NULL;
 
 --For performance
 CREATE INDEX idx_medicines_name ON medicines (name);
 CREATE INDEX idx_medicines_brand ON medicines (brand);
 CREATE INDEX idx_medicines_expiry ON medicines (expiry_date);
 CREATE INDEX idx_medicines_stock ON medicines (stock);
+
+ALTER TABLE medicines
+ADD COLUMN dosage_mg INTEGER;
+
+UPDATE medicines SET dosage_mg = 650 WHERE name = 'Dolo';
+
+ALTER TABLE medicines
+ALTER COLUMN dosage_mg SET NOT NULL;
+
 
 -------------------------------------------------
 CREATE TABLE sales (

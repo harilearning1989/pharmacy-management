@@ -16,5 +16,7 @@ public interface MedicineService {
     void uploadMedicinesFromExcel(MultipartFile file);
 
     void generateAndSaveValidMedicines();
+
+    List<MedicineResponseDto> searchMedicines(String keyword);
 }
 

@@ -98,6 +98,7 @@ public class MedicineServiceImpl implements MedicineService {
                 medicine.setUnitPrice(BigDecimal.valueOf(row.getCell(4).getNumericCellValue()));
                 medicine.setStock((int) row.getCell(5).getNumericCellValue());
                 medicine.setPrescriptionRequired(row.getCell(6).getBooleanCellValue());
+                //medicine.setDosageMg((int) row.getCell(7).getNumericCellValue());
 
                 medicines.add(medicine);
             }
@@ -133,6 +134,17 @@ public class MedicineServiceImpl implements MedicineService {
 
         // Save all medicines in a batch
         medicineRepository.saveAll(medicineList);
+    }
+
+    @Override
+    public List<MedicineResponseDto> searchMedicines(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            throw new IllegalArgumentException("Search keyword must not be empty");
+        }
+        return medicineRepository.searchByNameOrBatch(keyword.trim())
+                .stream()
+                .map(MedicineResponseDto::toDto)
+                .toList();
     }
 
 }

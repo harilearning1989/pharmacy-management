@@ -1,8 +1,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CustomerService } from "../../services/customer.service";
 import { allCustomers, Customer } from "../../models/customer";
-import { Medicine, medicines } from "../../models/medicine";
 import { SaleService } from "../../services/sale.service";
+import { MedicineService } from 'src/app/services/medicine.service';
+import { Medicine } from 'src/app/models/medicine';
 
 @Component({
   selector: 'app-sales',
@@ -38,6 +39,7 @@ export class SalesComponent implements OnInit {
   GST_PERCENT = 5; // example 5%
 
   constructor(private customerService: CustomerService,
+    private medicineService: MedicineService,
     private saleService: SaleService) {
   }
 
@@ -109,11 +111,27 @@ export class SalesComponent implements OnInit {
   }
 
   onSearchMedicine() {
+    if (this.searchMedicineName.length < 3) {
+      this.customers = [];
+      return;
+    }
+
+    this.medicineService.searchMedicineByNameOrBatchNumber(this.searchMedicineName).subscribe({
+      next: (response: Medicine[]) => {
+        this.filteredMedicines = response || [];
+      },
+      error: () => {
+        this.filteredMedicines = [];
+      }
+    });
+
+    /*
     this.filteredMedicines = this.searchMedicineName
       ? medicines.filter(m =>
         m.name.toLowerCase().includes(this.searchMedicineName.toLowerCase())
       )
       : [];
+    */
   }
 
   selectMedicine(medicine: Medicine) {

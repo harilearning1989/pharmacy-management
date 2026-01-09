@@ -21,7 +21,7 @@ export class MedicineComponent implements OnInit {
 
   ngOnInit() {
     //this.loadMedicines();
-    this.loadMockData();
+    //this.loadMockData();
   }
 
   loadMedicines() {
@@ -79,6 +79,7 @@ export class MedicineComponent implements OnInit {
     return '';
   }
 
+  /*
   private loadMockData() {
     this.medicines = [
       {
@@ -97,4 +98,5 @@ export class MedicineComponent implements OnInit {
     ];
     this.totalItems = 1;
   }
+    */
 }

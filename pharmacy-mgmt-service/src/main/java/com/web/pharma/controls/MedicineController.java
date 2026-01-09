@@ -143,6 +143,29 @@ public class MedicineController {
         medicineService.uploadMedicinesFromExcel(file);
     }
 
+    @Operation(
+            summary = "Search medicines by name or batch number",
+            description = "Search medicines using name or batch number (case-insensitive, partial match)."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Medicines retrieved successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MedicineResponseDto.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Invalid search keyword"),
+            @ApiResponse(responseCode = "403", description = "Forbidden, insufficient permissions")
+    })
+    @GetMapping("/searchName")
+    public List<MedicineResponseDto> searchMedicines(
+            @RequestParam("medicineOrBatchNumber") String medicineOrBatchNumber
+    ) {
+        return medicineService.searchMedicines(medicineOrBatchNumber);
+    }
+
     @GetMapping("/download-valid-sample")
     @Operation(
             summary = "Download sample Excel with 1000 valid medicines",

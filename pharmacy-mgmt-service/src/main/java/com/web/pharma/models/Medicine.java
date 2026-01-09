@@ -33,6 +33,9 @@ public class Medicine {
     @Column(name = "PRICE")
     private BigDecimal unitPrice;
 
+    @Column(name = "dosage_mg")
+    private Integer dosageMg;
+
     private int stock;
 
     @Column(name = "prescription_required")
