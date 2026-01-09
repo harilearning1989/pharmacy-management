@@ -125,7 +125,7 @@
             <button type="button" class="list-group-item list-group-item-action custom-item"
                     *ngFor="let med of filteredMedicines" (click)="selectMedicine(med)">
               <div class="fw-semibold">{{ med.name }}</div>
-              <small class="text-muted">{{ med.batchNumber }} · {{ med.batchNumber }}</small>
+              <small class="text-muted">{{ med.brand }} · {{ med.dosage }}</small>
             </button>
           </div>
         </div>
@@ -199,7 +199,8 @@
             <th>Batch No</th>
             <th>Medicine Name</th>
             <th>MG</th>
-            <th>Expiry Date</th>
+            <th>Expiry</th>
+            <th>Brand</th>
             <th>Qty</th>
             <th>Unit Price</th>
             <th>Discount</th>
@@ -213,6 +214,7 @@
             <td class="fw-semibold">{{ item.name }}</td>
             <td>{{ item.dosage }}</td>
             <td>{{ item.expiryDate }}</td>
+            <td>{{ item.brand }}</td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.price | number:'1.2-2' }}</td>
             <td>0%</td>

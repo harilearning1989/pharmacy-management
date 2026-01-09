@@ -1,14 +1,17 @@
 package com.web.pharma.dtos;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record SaleHistoryDto(
         Long saleId,
+        String username,
         String customerName,
-        String soldBy,
-        BigDecimal totalAmount,
+        BigDecimal subtotal,
+        BigDecimal discount,
+        BigDecimal gst,
+        BigDecimal grandTotal,
         String paymentMethod,
-        LocalDateTime saleDate
+        LocalDate saleDate
 ) {}
 

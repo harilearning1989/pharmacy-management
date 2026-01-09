@@ -4,6 +4,7 @@ import com.web.pharma.dtos.SaleHistoryDto;
 import com.web.pharma.services.SaleHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -19,7 +20,27 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SaleHistoryController {
 
-    private final SaleHistoryService service;
+    private final SaleHistoryService saleHistoryService;
+
+
+    @Operation(
+            summary = "Get all sales",
+            description = "Retrieves all sales with customer and user info."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Sales retrieved successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = SaleHistoryDto.class))
+                    )
+            )
+    })
+    @GetMapping("/all")
+    public List<SaleHistoryDto> getAllSales() {
+        return saleHistoryService.getAllSales();
+    }
 
     @Operation(
             summary = "Get today's sales",
@@ -37,7 +58,7 @@ public class SaleHistoryController {
     })
     @GetMapping("/today")
     public List<SaleHistoryDto> today() {
-        return service.getTodaySales();
+        return saleHistoryService.getTodaySales();
     }
 
     @Operation(
@@ -56,7 +77,7 @@ public class SaleHistoryController {
     })
     @GetMapping("/weekly")
     public List<SaleHistoryDto> weekly() {
-        return service.getWeeklySales();
+        return saleHistoryService.getWeeklySales();
     }
 
     @Operation(
@@ -75,7 +96,7 @@ public class SaleHistoryController {
     })
     @GetMapping("/monthly")
     public List<SaleHistoryDto> monthly() {
-        return service.getMonthlySales();
+        return saleHistoryService.getMonthlySales();
     }
 
     @Operation(
@@ -109,7 +130,7 @@ public class SaleHistoryController {
             )
             @RequestParam LocalDate endDate
     ) {
-        return service.getSalesByDateRange(startDate, endDate);
+        return saleHistoryService.getSalesByDateRange(startDate, endDate);
     }
 
     @Operation(
@@ -136,7 +157,7 @@ public class SaleHistoryController {
             )
             @PathVariable Long customerId
     ) {
-        return service.getSalesByCustomer(customerId);
+        return saleHistoryService.getSalesByCustomer(customerId);
     }
 }
 

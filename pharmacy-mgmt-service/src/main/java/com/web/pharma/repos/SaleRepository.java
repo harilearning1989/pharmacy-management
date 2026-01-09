@@ -1,5 +1,6 @@
 package com.web.pharma.repos;
 
+import com.web.pharma.dtos.SaleHistoryDto;
 import com.web.pharma.models.Sale;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,9 +17,9 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 
     // Date range
     @Query("""
-    SELECT s FROM Sale s
-    WHERE s.saleDate BETWEEN :start AND :end
-""")
+                SELECT s FROM Sale s
+                WHERE s.saleDate BETWEEN :start AND :end
+            """)
     List<Sale> findSalesBetween(
             @Param("start") LocalDateTime start,
             @Param("end") LocalDateTime end
@@ -40,5 +41,24 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
             "WHERE s.saleDate BETWEEN :start AND :end")
     BigDecimal calculateTotalSales(@Param("start") LocalDateTime start,
                                    @Param("end") LocalDateTime end);
+
+    @Query("""
+                SELECT new com.web.pharma.dtos.SaleHistoryDto(
+                    s.id,
+                    u.username,
+                    c.name,
+                    s.subtotal,
+                    s.discount,
+                    s.gst,
+                    s.grandTotal,
+                    s.paymentMethod,
+                    s.saleDate
+                )
+                FROM Sale s
+                JOIN s.customer c
+                JOIN s.soldBy u
+                ORDER BY s.saleDate DESC
+            """)
+    List<SaleHistoryDto> findAllSalesWithCustomerAndUser();
 
 }

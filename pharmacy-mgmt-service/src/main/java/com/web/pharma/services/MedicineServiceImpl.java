@@ -48,15 +48,20 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
+    public List<MedicineResponseDto> searchMedicines(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            throw new IllegalArgumentException("Search keyword must not be empty");
+        }
+        return medicineRepository.searchByNameOrBatch(keyword.trim())
+                .stream()
+                .map(MedicineResponseDto::toDto)
+                .toList();
+    }
+
+    @Override
     public MedicineResponseDto updateMedicine(Long id, MedicineRequestDto dto) {
         Medicine medicine = medicineRepository.findById(id).orElseThrow();
-        medicine.setName(dto.name());
-        medicine.setBrand(dto.brand());
-        medicine.setBatchNumber(dto.batchNumber());
-        medicine.setExpiryDate(dto.expiryDate());
-        medicine.setUnitPrice(dto.price());
-        medicine.setStock(dto.stock());
-        medicine.setPrescriptionRequired(dto.prescriptionRequired());
+        dto.applyTo(medicine);
         return MedicineResponseDto.toDto(medicine);
     }
 
@@ -134,17 +139,6 @@ public class MedicineServiceImpl implements MedicineService {
 
         // Save all medicines in a batch
         medicineRepository.saveAll(medicineList);
-    }
-
-    @Override
-    public List<MedicineResponseDto> searchMedicines(String keyword) {
-        if (keyword == null || keyword.trim().isEmpty()) {
-            throw new IllegalArgumentException("Search keyword must not be empty");
-        }
-        return medicineRepository.searchByNameOrBatch(keyword.trim())
-                .stream()
-                .map(MedicineResponseDto::toDto)
-                .toList();
     }
 
 }

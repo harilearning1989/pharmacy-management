@@ -1,56 +1,223 @@
-<div class="d-flex align-items-center gap-2 mb-2">
+<div class="container mt-3">
+  <div class="card mb-2 shadow-sm">
+    <div class="card-header d-flex align-items-center justify-content-center py-1">
+      <span>Show All Customers</span>
+    </div>
 
-  <!-- Search box (takes remaining width) -->
-  <input
-    type="text"
-    class="form-control form-control-sm flex-grow-1"
-    placeholder="Search Customer..."
-    [(ngModel)]="searchText"
-  />
+    <div class="card-body">
+      <!-- 🔍 SEARCH BOX (ADD HERE) -->
+      <div class="row mb-3 align-items-center">
+        <!-- Search -->
+        <div class="col-8 col-md-4 ms-auto">
+          <input type="text" class="form-control form-control-sm" placeholder="Search name, email or phone"
+            [(ngModel)]="searchText" />
+        </div>
 
-  <!-- Add Customer -->
-  <button
-    class="btn btn-primary btn-sm action-btn"
-    title="Add Customer"
-  >
-    <i class="bi bi-plus-lg"></i>
-  </button>
+        <!-- Add Button -->
+        <div class="col-auto">
+          <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addCustomerModal"
+            title="Add Customer">
+            <i class="bi bi-plus-lg"></i>
+          </button>
+        </div>
+      </div>
 
+      <div class="table-responsive table-fixed-header">
+        <table class="table cart-table align-middle mb-0 table-striped">
+          <thead class="table-header">
+            <tr>
+              <th (click)="sort('id')" style="cursor:pointer">
+                Id <i class="bi ms-1" [ngClass]="getSortIcon('id')"></i>
+              </th>
+              <th (click)="sort('name')" style="cursor:pointer">
+                Customer Name <i class="bi ms-1" [ngClass]="getSortIcon('name')"></i>
+              </th>
+              <th (click)="sort('email')" style="cursor:pointer">
+                Email <i class="bi ms-1" [ngClass]="getSortIcon('email')"></i>
+              </th>
+              <th>Phone</th>
+              <th>Gender</th>
+              <th>DOB</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table-body-scroll">
+            <tr *ngFor="let cust of filterCustomer(); let i = index">
+              <td>{{ cust.id }}</td>
+              <td>{{ cust.name }}</td>
+              <td>{{ cust.email }}</td>
+              <td>{{ cust.phone }}</td>
+              <td>{{ cust.gender }}</td>
+              <td>{{ cust.dob | date:'yyyy-MMM-dd' }}</td>
+              <td class="text-center">
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                  <button class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#editCustomerModal"
+                    (click)="openEditDialog(cust)">
+                    <i class="bi bi-pencil-square text-primary"></i>
+                  </button>
+                  <button class="btn btn-icon btn-delete" (click)="openDeleteModal(cust)" data-bs-toggle="modal"
+                    data-bs-target="#deleteConfirmModal">
+                    <i class="bi bi-trash text-danger"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
 </div>
 
-<div class="table-responsive" style="max-height: 480px; overflow-y: auto;">
-  <div class="table-responsive" style="max-height: 480px; overflow-y: auto;">
-    <table class="table table-bordered table-striped compact-table">
-      <thead class="table-light sticky-header">
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>DOB</th>
-        <th>Gender</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let cust of filterCustomer()" class="table-hover-row">
-        <td>{{ cust.id }}</td>
-        <td>{{ cust.name }}</td>
-        <td>{{ cust.email }}</td>
-        <td>{{ cust.phone }}</td>
-        <td>{{ cust.dob | date:'yyyy-MM-dd' }}</td>
-        <td>{{ cust.gender }}</td>
-        <td>
-          <button class="btn btn-warning btn-sm p-0 me-1" style="width:24px; height:24px;" title="Edit">
-            <i class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i>
-          </button>
-          <button class="btn btn-danger btn-sm p-0" style="width:24px; height:24px;" (click)="deleteCustomer(cust.id)"
-                  title="Delete">
-            <i class="bi bi-trash-fill" style="font-size: 0.8rem;"></i>
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+
+<div class="modal fade" id="editCustomerModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <div class="modal-header" style="background-color: #e2e8f0;">
+        <h5 class="modal-title">Edit Customer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label">Name</label>
+            <input class="form-control" [(ngModel)]="selectedCustomer.name">
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label class="form-label">Email</label>
+            <input class="form-control" [(ngModel)]="selectedCustomer.email">
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label class="form-label">Phone</label>
+            <input class="form-control" [(ngModel)]="selectedCustomer.phone">
+          </div>
+
+          <div class="col-12 col-md-6">
+            <label class="form-label">Gender</label>
+            <select class="form-select" [(ngModel)]="selectedCustomer.gender">
+              <option>Male</option>
+              <option>Female</option>
+              <option>Others</option>
+            </select>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">DOB</label>
+            <input type="date" class="form-control" [(ngModel)]="selectedCustomer.dob">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button class="btn btn-primary" (click)="updateCustomer()">
+          Update
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addCustomerModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Customer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="addCustomerForm">
+          <div class="row g-3">
+
+            <div class="col-12 col-md-6">
+              <label class="form-label">Name</label>
+              <input class="form-control" formControlName="name">
+              <div *ngIf="addCustomerForm.get('name')?.touched && addCustomerForm.get('name')?.invalid"
+                class="text-danger small">
+                Name is required and must be at least 3 characters.
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label">Email</label>
+              <input class="form-control" formControlName="email">
+              <div *ngIf="addCustomerForm.get('email')?.touched && addCustomerForm.get('email')?.invalid"
+                class="text-danger small">
+                Valid email is required.
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label">Phone</label>
+              <input class="form-control" formControlName="phone">
+              <div *ngIf="addCustomerForm.get('phone')?.touched && addCustomerForm.get('phone')?.invalid"
+                class="text-danger small">
+                Phone must be 10 digits.
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label">Gender</label>
+              <select class="form-select" formControlName="gender">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Others">Others</option>
+              </select>
+              <div *ngIf="addCustomerForm.get('gender')?.touched && addCustomerForm.get('gender')?.invalid"
+                class="text-danger small">
+                Gender is required.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">DOB</label>
+              <input type="date" class="form-control" formControlName="dob">
+              <div *ngIf="addCustomerForm.get('dob')?.touched && addCustomerForm.get('dob')?.invalid"
+                class="text-danger small">
+                Date of birth is required.
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-primary" (click)="addCustomer()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header" style="background-color: #e2e8f0;">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        Are you sure you want to delete <strong>{{ customerToDelete?.name }}</strong>?
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-danger" (click)="deleteCustomerConfirmed()">Delete</button>
+      </div>
+
+    </div>
   </div>
 </div>

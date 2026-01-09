@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,6 +19,11 @@ import java.util.List;
 public class SaleHistoryServiceImpl implements SaleHistoryService {
 
     private final SaleRepository saleRepository;
+
+    @Override
+    public List<SaleHistoryDto> getAllSales() {
+        return saleRepository.findAllSalesWithCustomerAndUser();
+    }
 
     @Override
     public List<SaleHistoryDto> getTodaySales() {
@@ -56,16 +63,7 @@ public class SaleHistoryServiceImpl implements SaleHistoryService {
     }
 
     private List<SaleHistoryDto> map(List<Sale> sales) {
-        return sales.stream()
-                .map(s -> new SaleHistoryDto(
-                        s.getId(),
-                        s.getCustomer().getName(),
-                        s.getSoldBy().getUsername(),
-                        s.getGrandTotal(),
-                        s.getPaymentMethod(),
-                        s.getSaleDate()
-                ))
-                .toList();
+        return new ArrayList<>();
     }
 }
 

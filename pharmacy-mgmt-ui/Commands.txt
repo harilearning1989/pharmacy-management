@@ -60,6 +60,5 @@ ng g c components/StockForm
 ng g s services/stock
 npm install @ng-bootstrap/ng-bootstrap@13
 
-
-
-
+Pipes
+ng g p pipes/gender-icon

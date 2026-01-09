@@ -12,5 +12,7 @@ public interface SaleHistoryService {
     List<SaleHistoryDto> getMonthlySales();
     List<SaleHistoryDto> getSalesByDateRange(LocalDate start, LocalDate end);
     List<SaleHistoryDto> getSalesByCustomer(Long customerId);
+    List<SaleHistoryDto> getAllSales();
+
 }
 

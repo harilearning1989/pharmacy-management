@@ -40,7 +40,7 @@ public record CustomerDto(
                 .name(customerDto.name)
                 .email(customerDto.email)
                 .phone(customerDto.phone)
-                .gender(customerDto.gender)
+                .gender(customerDto.gender.toUpperCase())
                 .dob(dob)
                 .build();
     }

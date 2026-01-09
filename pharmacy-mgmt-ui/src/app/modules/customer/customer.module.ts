@@ -3,18 +3,21 @@ import {CommonModule} from '@angular/common';
 
 import {CustomerRoutingModule} from './customer-routing.module';
 import {CustomerComponent} from "../../components/customer/customer.component";
-import {FormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { GenderIconPipe } from 'src/app/pipes/gender-icon.pipe';
 
 
 @NgModule({
   declarations: [
-    CustomerComponent
+    CustomerComponent,
+    GenderIconPipe
   ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
-    FormsModule
-  ]
+    FormsModule,
+    ReactiveFormsModule
+]
 })
 export class CustomerModule {
 }

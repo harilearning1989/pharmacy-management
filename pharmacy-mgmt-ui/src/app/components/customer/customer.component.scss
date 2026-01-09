@@ -1,91 +1,87 @@
-.table-sm th,
-.table-sm td {
-  font-size: 0.85rem; /* smaller, professional font */
-}
-
-.table-hover-row:hover {
-  background-color: #f1f3f5; /* subtle hover effect */
-  cursor: pointer;
-}
-
-.table-bordered th,
-.table-bordered td {
-  vertical-align: middle; /* center content vertically */
-  text-align: center;
-}
-
-.table-responsive::-webkit-scrollbar {
-  width: 6px;
-}
-
-.table-responsive::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: #f9f9f9; /* light gray */
-}
-
-.table-striped tbody tr:nth-of-type(even) {
-  background-color: #ffffff; /* white */
-}
-
-.compact-table th,
-.compact-table td {
-  font-size: 0.7rem;       /* smaller font */
-  padding: 0.2rem 0.3rem;  /* very tight padding */
-  line-height: 1;           /* minimize height */
-  vertical-align: middle;
-}
-
-/* Sticky header with slightly larger font */
-.sticky-header th {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: #e8ecf0;
-  font-size: 0.85rem;     /* slightly larger than body */
-  padding: 0.5rem 0.6rem; /* more readable */
-  text-align: center;
-}
-
-/*input.form-control-sm {
-  font-size: 0.8rem;
-  padding: 0.25rem 0.5rem;
-}*/
-
-/* Search box */
-.form-control-sm {
-  font-size: 0.8rem;
-  height: 32px;
-}
-
-/* Fixed-size action buttons */
-.action-btn {
-  width: 36px;
-  height: 32px;
-  padding: 0;
+.card-header {
+  min-height: 30px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  background-color: #e2e8f0;
+  font-size: 12px;
+}
+/* Table outer border */
+.cart-table {
+  border: 1px solid #d1d5db; /* darker border */
+  font-size: 11px;
 }
 
-.action-btn i {
-  font-size: 0.9rem;
+/* ================= HEADER (KEEP AS IS) ================= */
+.table-fixed-header {
+  height: 70vh; /* Table body will take 60% of viewport height */
+  overflow-y: auto;
 }
 
-/* Expired - Red */
-.expired-row td {
-  background-color: #f8d7da !important;
+.table-fixed-header thead th {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 10;
 }
 
-/* Near expiry (≤ 7 days) - Yellow */
-.near-expiry-row td {
-  background-color: #fff3cd !important;
+.cart-table thead th {
+  background-color: #e2e8f0;
+  text-align: center;
 }
 
-/* Keep hover effect */
-.table-hover-row:hover td {
-  filter: brightness(0.97);
+/* ================= BODY ROW HEIGHT FIX ================= */
+.cart-table tbody td {
+  padding: 2px 6px !important;   /* main height control */
+  font-size: 11px;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+  text-align: center;
 }
+
+/* Remove Bootstrap enforced spacing */
+.cart-table tbody td * {
+  margin: 0 !important;
+}
+
+/* Fix switch forcing height */
+.form-switch {
+  min-height: unset !important;
+  padding-left: 2.2em !important;
+}
+
+.form-switch .form-check-input {
+  width: 28px !important;
+  height: 14px !important;
+  margin: 0 !important;
+}
+
+/* Fix button height */
+.btn-icon {
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+/* Prevent flex from stretching row */
+.cart-table tbody .d-flex {
+  align-items: center;
+}
+
+/* OPTIONAL: force exact row height */
+.cart-table tbody tr {
+  height: 28px;
+}
+
+.modal-dialog {
+  max-width: 90%;
+}
+
+@media (min-width: 992px) {
+  .modal-dialog {
+    max-width: 700px;
+  }
+}
+
+.form-control-sm {
+  font-size: 0.8rem;
+}
+
