@@ -1,13 +1,14 @@
 package com.web.pharma.services;
 
+import com.web.pharma.dtos.SaleHistoryDetailDto;
 import com.web.pharma.dtos.SaleHistoryDto;
+import com.web.pharma.exception.ResourceNotFoundException;
 import com.web.pharma.models.Sale;
 import com.web.pharma.repos.SaleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +24,16 @@ public class SaleHistoryServiceImpl implements SaleHistoryService {
     @Override
     public List<SaleHistoryDto> getAllSales() {
         return saleRepository.findAllSalesWithCustomerAndUser();
+    }
+
+    @Override
+    public SaleHistoryDetailDto getSaleById(Long saleId) {
+        Sale sale = saleRepository.findWithDetailsById(saleId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Sale not found with id: " + saleId)
+                );
+
+        return SaleHistoryDetailDto.fromEntity(sale);
     }
 
     @Override

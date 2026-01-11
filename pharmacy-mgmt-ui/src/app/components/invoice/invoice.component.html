@@ -1,115 +1,77 @@
-<div class="invoice-header">
-  <span class="span-header">Invoice Details</span>
-</div>
-
-<div class="container-fluid bg-white py-2">
-  <div class="row g-0">
-    <div class="col-6 pe-4">
-      <div class="info-row">
-        <div class="label">Invoice No:</div>
-        <div class="value fw-bold">INV-1002356</div>
-      </div>
-      <div class="info-row">
-        <div class="label">Invoice Date:</div>
-        <div class="value">12/15/2023</div>
-      </div>
-      <div class="info-row border-botton-line">
-        <div class="label">Due Date:</div>
-        <div class="value">12/22/2023</div>
-      </div>
+<div class="container mt-3">
+  <div class="card mb-2 shadow-sm">
+    <div class="card-header d-flex align-items-center justify-content-center py-1">
+      <span>Show All Customers</span>
     </div>
 
-    <div class="col-6 ps-2">
-      <div class="info-row">
-        <div class="label">Patient:</div>
-        <div class="value fw-bold">Sarah Collins</div>
-      </div>
-      <div class="info-row">
-        <div class="label">Contact:</div>
-        <div class="value">(555) 123-4567</div>
-      </div>
-      <div class="info-row border-botton-line">
-        <div class="label">Address:</div>
-        <div class="value">123 Maple St., Springfield, IL</div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div class="item-details-section mt-4">
-  <div class="row">
-    <span class="span-header border-botton-line" style="padding-left: 30px;">Item Details</span>
-    <div class="col-9">
-      <table class="table custom-billing-table" style="border:#040403 2px solid ">
-        <thead>
-        <tr>
-          <th>Item Name</th>
-          <th>Batch No</th>
-          <th>Expiry Date</th>
-          <th class="text-center">Quantity</th>
-          <th class="text-end">Price</th>
-          <th class="text-center">Discount</th>
-          <th class="text-end">Tax</th>
-          <th class="text-end">Total</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of items">
-          <td>{{item.name}}</td>
-          <td><div class="batch-cell">{{item.batch}}</div></td>
-          <td>{{item.expiry}}</td>
-          <td class="text-center">{{item.qty}}</td>
-          <td class="text-end">${{item.price | number:'1.2-2'}}</td>
-          <td class="text-center">{{item.discount}}%</td>
-          <td class="text-end">${{item.tax | number:'1.2-2'}}</td>
-          <td class="text-end fw-bold">${{item.total | number:'1.2-2'}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="col-3">
-      <div class="calc-box">
-        <div class="calc-row"><span>Subtotal:</span> <strong>$70.00</strong></div>
-        <div class="calc-row"><span>Discount:</span> <strong>$2.00</strong></div>
-        <div class="calc-row"><span>Tax:</span> <strong>$4.33</strong></div>
-        <div class="grand-total-row">
-          <span>Grand Total:</span>
-          <span class="fs-5 fw-bold">$72.33</span>
+    <div class="card-body">
+      <!-- 🔍 SEARCH BOX (ADD HERE) -->
+      <div class="row mb-3 align-items-center">
+        <!-- Search -->
+        <div class="col-8 col-md-4 ms-auto">
+          <input type="text" class="form-control form-control-sm" placeholder="Search name, email or phone"
+            [(ngModel)]="searchText" />
         </div>
       </div>
+
+      <div class="table-responsive table-fixed-header">
+        <table class="table cart-table align-middle mb-0 table-striped">
+          <thead class="table-header">
+            <tr>
+              <th (click)="sort('saleId')" style="cursor:pointer">
+                SaleId <i class="bi ms-1" [ngClass]="getSortIcon('saleId')"></i>
+              </th>
+              <th (click)="sort('customerName')" style="cursor:pointer">
+                Customer Name <i class="bi ms-1" [ngClass]="getSortIcon('customerName')"></i>
+              </th>
+              <th (click)="sort('customerPhone')" style="cursor:pointer">
+                Customer Phone <i class="bi ms-1" [ngClass]="getSortIcon('customerPhone')"></i>
+              </th>
+              <th>Grand Total</th>
+              <th>Payment</th>
+              <th (click)="sort('saleDate')" style="cursor:pointer">
+                Sale Date <i class="bi ms-1" [ngClass]="getSortIcon('saleDate')"></i>
+              </th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody class="table-body-scroll">
+            <tr *ngFor="let cust of filterCustomer(); let i = index" style="cursor:pointer"
+              (click)="openSaleDialog(cust.saleId)">
+              <td>{{ cust.saleId }}</td>
+              <td>{{ cust.customerName }}</td>
+              <td>{{ cust.customerPhone }}</td>
+              <td>{{ cust.grandTotal}}</td>
+              <td>{{ cust.paymentMethod}}</td>
+              <td>{{ cust.saleDate | date:'yyyy-MMM-dd' }}</td>
+              <td>{{ cust.username}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 </div>
 
-<div class="d-flex gap-2">
-  <button type="button" class="btn btn-action-custom btn-add">
-    <i class="bi bi-plus-lg me-2"></i>Add Item
-  </button>
-
-  <button type="button" class="btn btn-action-custom btn-remove">
-    <i class="bi bi-x-lg me-2"></i>Remove Item
-  </button>
-</div>
-
-<div class="footer-action-bar">
-  <div class="d-flex justify-content-end align-items-center gap-2">
-
-    <button class="btn btn-outline-custom">
-      <i class="bi bi-printer-fill"></i>
-      Print Invoice
-    </button>
-
-    <button class="btn btn-outline-custom">
-      <i class="bi bi-envelope"></i>
-      Email Invoice
-    </button>
-
-    <button class="btn btn-save-custom">
-      <i class="bi bi-check-lg"></i>
-      Save
-    </button>
-
+<div class="modal fade" id="showSaleDetailModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header custom-modal-header">
+        <h5 class="modal-title">Sale Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <app-sale-dialog-details [saleId]="saleId"></app-sale-dialog-details>
+      </div>
+      <div class="modal-footer card-header">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-outline-primary" (click)="printInvoice()">
+          <i class="bi bi-printer"></i> Print</button>
+        <button class="btn btn-outline-primary" (click)="emailInvoice()">
+          <i class="bi bi-envelope"></i> Email
+        </button>
+      </div>
+    </div>
   </div>
 </div>

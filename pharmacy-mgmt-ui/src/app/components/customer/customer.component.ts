@@ -132,7 +132,6 @@ export class CustomerComponent implements OnInit {
     }
   }
 
-
   sort(column: string) {
     if (this.sortColumn === column) {
       // toggle direction

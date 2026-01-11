@@ -1,5 +1,6 @@
 package com.web.pharma.controls;
 
+import com.web.pharma.dtos.SaleHistoryDetailDto;
 import com.web.pharma.dtos.SaleHistoryDto;
 import com.web.pharma.services.SaleHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +23,6 @@ public class SaleHistoryController {
 
     private final SaleHistoryService saleHistoryService;
 
-
     @Operation(
             summary = "Get all sales",
             description = "Retrieves all sales with customer and user info."
@@ -41,6 +41,31 @@ public class SaleHistoryController {
     public List<SaleHistoryDto> getAllSales() {
         return saleHistoryService.getAllSales();
     }
+
+    // 🔹 FIND BY SALE ID
+    @Operation(
+            summary = "Get sale by ID",
+            description = "Retrieves a single sale by its sale ID."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Sale retrieved successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = SaleHistoryDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Sale not found"
+            )
+    })
+    @GetMapping("/saleById")
+    public SaleHistoryDetailDto getSaleById(@RequestParam("saleId") Long saleId) {
+        return saleHistoryService.getSaleById(saleId);
+    }
+
 
     @Operation(
             summary = "Get today's sales",

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tokenService: TokenService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
@@ -17,5 +21,11 @@ export class HeaderComponent implements OnInit {
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
   }
+
+  logOut() {
+    this.tokenService.clearToken();
+    this.router.navigate(['/auth/login']);
+  }
+
 
 }

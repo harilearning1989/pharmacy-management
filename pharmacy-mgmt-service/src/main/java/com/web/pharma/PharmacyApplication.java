@@ -8,8 +8,8 @@ public class PharmacyApplication {
 
     //http://localhost:8081/swagger-ui.html
 
-	public static void main(String[] args) {
-		SpringApplication.run(PharmacyApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PharmacyApplication.class, args);
+    }
 
 }

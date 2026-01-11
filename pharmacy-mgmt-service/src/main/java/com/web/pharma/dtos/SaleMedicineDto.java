@@ -38,4 +38,5 @@ public record SaleMedicineDto(
                 sm.getTotal()
         );
     }
+
 }

@@ -1,207 +1,47 @@
-.invoice-header {
-  background-color: #e8ecf0; // exact from image
-  height: 48px; // matches image header height
-  padding: 0 16px;
-  display: flex;
-  align-items: center; // vertical align center
-  border: 1px solid #ccc;
-}
-
-.span-header {
-  color: #070606;
-  font-size: 15px; // image font size
-  font-weight: 600;
-  line-height: 1; // tight like image
-}
-
-/* The container bar with the light grey border and subtle shadow */
-.footer-action-bar {
-  background-color: #e8ecf0;
-  padding: 10px 25px;
-  border-top: 1px solid #dee2e6;
-  border-radius: 0 0 8px 8px;
-  height: 48px;
-}
-
-/* Base button resets to match the image's flat look */
-.btn-outline-custom, .btn-save-custom {
-  font-size: 10px;
-  border-radius: 4px; /* Small rounding like the image */
+.card-header {
+  min-height: 30px;
   display: flex;
   align-items: center;
-  gap: 4px;
-  transition: all 0.2s;
-  height: 30px;
-}
-
-/* OUTLINE BUTTONS (Print & Email) */
-.btn-outline-custom {
-  background-color: #ffffff;
-  border: 1px solid #ced4da;
-  color: #0056b3; /* Deep blue text from image */
-  width: 110px;
-}
-
-.btn-outline-custom:hover {
-  background-color: #f1f3f5;
-  border-color: #adb5bd;
-}
-
-/* SOLID TEAL BUTTON (Save) */
-.btn-save-custom {
-  background-color: #1a8981; /* Exact teal/cyan from the image */
-  border: none;
-  color: #ffffff;
-}
-
-.btn-save-custom:hover {
-  background-color: #146c66;
-}
-
-/* Icon specific sizing to match the text height */
-.bi {
-  font-size: 1.1rem;
-}
-
-/* Ensuring the Save checkmark is bold like the image */
-.bi-check-lg {
-  stroke-width: 2;
-  -webkit-text-stroke: 1px white;
-}
-
-/* Container reset */
-.container-fluid {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-}
-
-.info-row {
-  display: flex;
-  align-items: center;
-  /* Very tight row height to match the image */
-  padding: 6px 0;
-  border-top: 1px solid #dee2e6;
-}
-
-.border-botton-line {
-  border-bottom: 1px solid #dee2e6;
-}
-
-.label {
-  /* Smaller font size and specific grey color for labels */
-  font-size: 10px;
-  color: #718096;
-  width: 100px;
-  flex-shrink: 0;
-}
-
-.value {
-  /* Matching font size with a darker navy/slate color */
-  font-size: 10px;
-  color: #2d3748;
-}
-
-.fw-bold {
-  font-weight: 600;
-}
-
-
-/* Invoice Details Styling */
-.detail-row {
-  display: flex;
-  padding: 8px 0;
-  border-bottom: 1px solid #f0f2f5;
-  font-size: 10px;
-}
-
-.no-border {
-  border-bottom: none;
-}
-
-.detail-label {
-  color: #7d8da1;
-  width: 110px;
-}
-
-.detail-value {
-  color: #334155;
-}
-
-/* Table Styling */
-.custom-billing-table {
-  border: 1px solid #e2e8f0;
-}
-
-.custom-billing-table thead {
-  background-color: #1178df;
-}
-
-.custom-billing-table th {
-  color: #475569;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 12px;
-  background-color: lightgray;
-}
-
-.custom-billing-table td {
-  font-size: 10px;
-  border-color: #f1f5f9;
-  height: 4px;
-}
-
-/* Calc Box Styling */
-.calc-box {
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.calc-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 15px;
-  font-size: 10px;
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.grand-total-row {
-  background-color: #3b82f6; /* Matching the blue in image 1 */
-  color: white;
-  padding: 12px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-
-/* Base style for both buttons */
-.btn-action-custom {
-  background-color: #f1f4f9; /* Light grayish-blue background */
-  border: 1px solid #d1d9e6;  /* Subtle border color */
-  border-radius: 4px;        /* Slight rounding */
-  padding: 6px 16px;         /* Specific padding for the shape */
-  font-size: 14px;
-  font-weight: 500;
-  color: #1a3a6c;            /* Dark blue text color */
-  display: flex;
-  align-items: center;
-  transition: all 0.2s ease;
-}
-
-/* Hover effect */
-.btn-action-custom:hover {
   background-color: #e2e8f0;
-  border-color: #cbd5e0;
+  font-size: 12px;
 }
 
-/* Blue Plus Icon for Add Item */
-.btn-add i {
-  color: #2b5ea7;            /* Specific blue for plus icon */
-  font-weight: bold;
+/* Table outer border */
+.cart-table {
+  border: 1px solid #d1d5db; /* darker border */
+  font-size: 11px;
 }
 
-/* Red X Icon for Remove Item */
-.btn-remove i {
-  color: #d9534f;            /* Specific red for remove icon */
-  font-weight: bold;
+/* ================= HEADER (KEEP AS IS) ================= */
+.table-fixed-header {
+  height: 70vh; /* Table body will take 60% of viewport height */
+  overflow-y: auto;
 }
+
+.table-fixed-header thead th {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 10;
+}
+
+.cart-table thead th {
+  background-color: #e2e8f0;
+  text-align: center;
+}
+
+/* ================= BODY ROW HEIGHT FIX ================= */
+.cart-table tbody td {
+  padding: 6px 6px !important;   /* main height control */
+  font-size: 11px;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+  text-align: center;
+}
+
+/* Modal header */
+.custom-modal-header {
+  background-color: #e2e8f0;
+  height: 7vh;
+}
+

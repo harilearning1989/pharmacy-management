@@ -1,0 +1,102 @@
+<div *ngIf="saleHistoryDetail" id="invoice-section" class="p-4 border rounded shadow-sm bg-light">
+
+  <!-- Pharmacy Header -->
+  <div class="text-center mb-4">
+    <h3 class="fw-bold mb-0">My Pharmacy</h3>
+    <small class="text-muted">GSTIN: XXXXXXXX | Phone: 9999999999 | Address: Your Address Here</small>
+  </div>
+
+  <!-- Customer Details -->
+  <div class="bg-white p-3 rounded mb-3 shadow-sm">
+    <h6 class="fw-bold mb-3">Customer Details</h6>
+    <div class="row">
+      <div class="col-md-6">
+        <p class="mb-1"><b>Name:</b> {{ saleHistoryDetail.customer.name }}</p>
+        <p class="mb-1"><b>Email:</b> {{ saleHistoryDetail.customer.email }}</p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <p class="mb-1"><b>Phone:</b> {{ saleHistoryDetail.customer.phone }}</p>
+        <p class="mb-1"><b>DOB:</b> {{ saleHistoryDetail.customer.dob | date }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sale Info -->
+  <div class="bg-white p-3 rounded mb-3 shadow-sm">
+    <h6 class="fw-bold mb-3">Sale Info</h6>
+    <div class="row">
+      <div class="col-md-6">
+        <p class="mb-1"><b>Sale ID:</b> {{ saleHistoryDetail.id }}</p>
+        <p class="mb-1"><b>Date:</b> {{ saleHistoryDetail.saleDate | date:'medium' }}</p>
+        <p class="mb-1"><b>Payment:</b> {{ saleHistoryDetail.paymentMethod }}</p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <p class="mb-1"><b>Sold By:</b> {{ saleHistoryDetail.soldBy.username }}</p>
+        <p class="mb-1">{{ saleHistoryDetail.soldBy.email }}</p>
+        <p class="mb-1">{{ saleHistoryDetail.soldBy.phone }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Medicines Table -->
+  <div class="bg-white p-3 rounded mb-3 shadow-sm">
+    <h6 class="fw-bold mb-3">Medicines</h6>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-sm align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>Medicine</th>
+            <th>Batch</th>
+            <th>Expiry</th>
+            <th class="text-end">Qty</th>
+            <th class="text-end">Price</th>
+            <th class="text-end">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of saleHistoryDetail.saleMedicines; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>
+              {{ m.medicineResponseDto.name }}<br>
+              <small class="text-muted">{{ m.medicineResponseDto.brand }}</small>
+            </td>
+            <td>{{ m.medicineResponseDto.batchNumber }}</td>
+            <td>{{ m.medicineResponseDto.expiryDate | date }}</td>
+            <td class="text-end">{{ m.quantity }}</td>
+            <td class="text-end">{{ m.price | number:'1.2-2' }}</td>
+            <td class="text-end fw-bold">{{ m.total | number:'1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Totals -->
+  <div class="bg-white p-3 rounded shadow-sm">
+    <div class="row justify-content-end">
+      <div class="col-md-5">
+        <table class="table table-borderless mb-0">
+          <tr>
+            <th class="py-1">Subtotal:</th>
+            <td class="text-end py-1">{{ saleHistoryDetail.subtotal | number:'1.2-2' }}</td>
+          </tr>
+          <tr>
+            <th class="py-1">Discount:</th>
+            <td class="text-end py-1">{{ saleHistoryDetail.discount | number:'1.2-2' }}</td>
+          </tr>
+          <tr>
+            <th class="py-1">GST:</th>
+            <td class="text-end py-1">{{ saleHistoryDetail.gst | number:'1.2-2' }}</td>
+          </tr>
+          <tr class="border-top">
+            <th class="fs-5 fw-bold py-2">Grand Total:</th>
+            <td class="text-end fs-5 fw-bold text-success py-2">
+              {{ saleHistoryDetail.grandTotal | number:'1.2-2' }}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

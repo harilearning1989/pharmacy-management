@@ -1,11 +1,9 @@
 package com.web.pharma.dtos;
 
 import com.web.pharma.models.Customer;
-import com.web.pharma.models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 @Schema(description = "Customer data transfer object")
 public record CustomerDto(

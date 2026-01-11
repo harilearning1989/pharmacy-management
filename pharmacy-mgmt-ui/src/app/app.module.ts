@@ -8,7 +8,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./interceptor/auth.interceptor";
 import {ErrorInterceptor} from "./interceptor/error.interceptor";
 import { StockFormComponent } from './components/stock-form/stock-form.component';
-import { GenderIconPipe } from './pipes/gender-icon.pipe';
 
 @NgModule({
   declarations: [

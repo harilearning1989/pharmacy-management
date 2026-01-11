@@ -24,6 +24,9 @@ ng g c components/home
 ng g m modules/invoice --routing
 ng g c components/invoice -m modules/invoice
 
+ng g c components/sale-dialog-details
+
+
 ng g m modules/medicine --routing
 ng g c components/medicine -m modules/medicine
 
