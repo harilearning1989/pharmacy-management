@@ -7,4 +7,4 @@ spring:
 
 jwt:
   secret: Wo27Rk4IJcuDSAJTdkjTcnWbj/cXFiAyehKEIa+nc+a1OjaFSxttvaCDvtALRluhAN/xrvuVBea8kCGpJolxHw==
-  expiration-ms: 3600000  # 1 hour
+  expiration-ms: 7200000  # 2 hour

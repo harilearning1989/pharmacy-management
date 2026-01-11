@@ -3,7 +3,6 @@ package com.web.pharma.controls;
 import com.web.pharma.dtos.SaleRequestDto;
 import com.web.pharma.dtos.SaleResponseDto;
 import com.web.pharma.models.Sale;
-import com.web.pharma.models.User;
 import com.web.pharma.services.SaleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,40 +22,6 @@ import java.util.List;
 public class SaleRestController {
 
     private final SaleService saleService;
-
-    /*{
-      "customerId": 1,
-          "paymentMethod": "CASH",
-          "items": [
-      { "medicineId": 10, "quantity": 2 },
-      { "medicineId": 12, "quantity": 1 }
-]
-  }*/
-
-    /*@Operation(
-            summary = "Create a new sale",
-            description = "Creates a new sale for the authenticated user."
-    )
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Sale successfully created",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = SaleResponseDto.class)
-                    )
-            ),
-            @ApiResponse(responseCode = "400", description = "Invalid sale data"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized"),
-            @ApiResponse(responseCode = "403", description = "Forbidden")
-    })
-    @PostMapping
-    public SaleResponseDto createSale(
-            @RequestBody SaleRequestDto dto,
-            @AuthenticationPrincipal UserDetails userDetails
-    ) {
-        return saleService.createSale(dto, userDetails.getUsername());
-    }*/
 
     @Operation(
             summary = "Create a new sale",

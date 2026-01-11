@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Medicine } from "../models/medicine";
 import { environment } from 'src/environments/environment';
@@ -14,11 +14,12 @@ export class MedicineService {
   constructor(private http: HttpClient) {
   }
 
-  getMedicines(page: number, size: number): Observable<{ content: Medicine[], totalElements: number }> {
-    let params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString());
-    return this.http.get<{ content: Medicine[], totalElements: number }>(this.baseUrl, { params });
+  getAllMedicines(): Observable<Medicine[]> {
+    return this.http.get<Medicine[]>(`${this.baseUrl}medicines`);
+  }
+
+  loadAvailableStock(): Observable<Medicine[]> {
+    return this.http.get<Medicine[]>(`${this.baseUrl}medicines`);
   }
 
   deleteMedicine(id: number): Observable<void> {

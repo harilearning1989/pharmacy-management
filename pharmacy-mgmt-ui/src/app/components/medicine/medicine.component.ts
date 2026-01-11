@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {MedicineService} from "../../services/medicine.service";
-import {Medicine} from "../../models/medicine";
+import { Component, OnInit } from '@angular/core';
+import { MedicineService } from "../../services/medicine.service";
+import { Medicine } from "../../models/medicine";
 
 @Component({
   selector: 'app-medicine',
@@ -10,31 +10,71 @@ import {Medicine} from "../../models/medicine";
 export class MedicineComponent implements OnInit {
 
   medicines: Medicine[] = [];
-  totalItems = 0;
-  page = 0;
-  size = 10;
-  protected readonly Math = Math;
   searchText: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
+  sortColumn: string = '';
+  saleId: number = 0;
+  selectedMedicine: any;
+  customerToDelete: any;
+  deleteAction!: () => void;
+  medicineName: string = '';
 
   constructor(private medicineService: MedicineService) {
   }
 
   ngOnInit() {
-    //this.loadMedicines();
-    //this.loadMockData();
+    this.loadMedicines();
   }
 
   loadMedicines() {
-    this.medicineService.getMedicines(this.page, this.size).subscribe(res => {
-      this.medicines = res.content;
-      this.totalItems = res.totalElements;
+    this.medicineService.getAllMedicines().subscribe(res => {
+      this.medicines = res;
     });
   }
 
-  deleteMedicine(id: number) {
-    if (confirm('Are you sure you want to delete this medicine?')) {
-      this.medicineService.deleteMedicine(id).subscribe(() => this.loadMedicines());
-    }
+  openEditDialog(medicine: Medicine) {
+    this.selectedMedicine = medicine;
+  }
+
+  updateMedicine() {
+    console.log('Updated Customer:', this.selectedMedicine);
+
+    // Call API or update list here
+
+    // Close modal manually
+    const modal = document.getElementById('editCustomerModal');
+    const modalInstance = (window as any).bootstrap.Modal.getInstance(modal);
+    modalInstance.hide();
+  }
+
+  openDeleteModal(medicine: Medicine) {
+    this.medicineName = medicine.name;
+    this.deleteAction = () => this.deleteMedicine(medicine.id);
+  }
+
+  deleteConfirmed() {
+    this.deleteAction?.();
+  }
+
+  deleteMedicine(medicineId: number) {
+    console.log('deleteMedicine::', medicineId);
+    this.medicineService.deleteMedicine(medicineId).subscribe({
+      next: () => {
+        // update UI list
+        this.medicines = this.medicines.filter(m => m.id !== medicineId);
+
+        // close modal
+        this.closeModal('deleteConfirmModal');
+      },
+      error: () => alert('Failed to delete medicine')
+    });
+    this.closeModal('deleteCustomerModal');
+  }
+
+  private closeModal(modalId: string) {
+    const modalEl = document.getElementById(modalId);
+    const modal = (window as any).bootstrap.Modal.getInstance(modalEl);
+    modal?.hide();
   }
 
   onCSVUpload(event: any) {
@@ -54,6 +94,7 @@ export class MedicineComponent implements OnInit {
     return this.medicines.filter(med =>
       med.name.toLowerCase().includes(text) ||
       med.brand.toLowerCase().includes(text) ||
+      med.expiryDate.includes(text) ||
       med.batchNumber.toLowerCase().includes(text)
     );
   }
@@ -79,24 +120,38 @@ export class MedicineComponent implements OnInit {
     return '';
   }
 
-  /*
-  private loadMockData() {
-    this.medicines = [
-      {
-        id: 1,
-        name: "Paracetamol",
-        brand: "Panadol",
-        batchNumber: "B001",
-        expiryDate: "2025-12-15",
-        price: 5.99,
-        stock: 100,
-        quantity: 100,
-        prescriptionRequired: false,
-        createdAt: "2025-12-26T10:00:00Z",
-        updatedAt: "2025-12-26T10:00:00Z",
+  sort(column: string) {
+    if (this.sortColumn === column) {
+      // toggle direction
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      // new column sort
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+
+    this.medicines.sort((a: any, b: any) => {
+      let valueA = a[column];
+      let valueB = b[column];
+
+      // Handle string sorting
+      if (typeof valueA === 'string') {
+        valueA = valueA.toLowerCase();
+        valueB = valueB.toLowerCase();
       }
-    ];
-    this.totalItems = 1;
+
+      if (valueA < valueB) return this.sortDirection === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
   }
-    */
+
+  getSortIcon(column: string): string {
+    if (this.sortColumn !== column) {
+      return 'bi-arrow-down-up'; // default
+    }
+    return this.sortDirection === 'asc'
+      ? 'bi-sort-alpha-down'
+      : 'bi-sort-alpha-up';
+  }
 }

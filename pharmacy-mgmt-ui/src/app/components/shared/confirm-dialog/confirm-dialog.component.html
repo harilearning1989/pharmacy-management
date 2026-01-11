@@ -1,0 +1,35 @@
+<div class="modal fade" [id]="modalId" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header" style="background-color:#e2e8f0">
+        <h5 class="modal-title">{{ title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <ng-container *ngIf="message; else customContent">
+          {{ message }}
+        </ng-container>
+
+        <!-- Custom content support -->
+        <ng-template #customContent>
+          <ng-content></ng-content>
+        </ng-template>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          {{ cancelText }}
+        </button>
+        <button class="btn btn-danger" (click)="confirm()">
+          {{ confirmText }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

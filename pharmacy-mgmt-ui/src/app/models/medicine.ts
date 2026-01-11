@@ -156,4 +156,3 @@ export interface Medicine {
   createdAt: string;
   updatedAt: string;
 }
-

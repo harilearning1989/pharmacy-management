@@ -1,28 +1,97 @@
-<div class="container mt-4">
-  <h3>Stock Management</h3>
-  <button class="btn btn-primary mb-3" (click)="addStock()">Add Stock</button>
+<div class="container mt-3">
+  <div class="card mb-2 shadow-sm">
+    <div class="card-header d-flex align-items-center justify-content-center py-1">
+      <span>Show All Customers</span>
+    </div>
 
-  <table class="table table-bordered table-striped">
-    <thead class="table-dark">
-    <tr>
-      <th>Medicine Name</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Expiry Date</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let item of stocks">
-      <td>{{ item.medicineName }}</td>
-      <td>{{ item.quantity }}</td>
-      <td>{{ item.price }}</td>
-      <td>{{ item.expiryDate }}</td>
-      <td>
-        <button class="btn btn-warning btn-sm me-1" (click)="editStock(item)">Edit</button>
-        <button class="btn btn-danger btn-sm" (click)="deleteStock(item.id)">Delete</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+    <div class="card-body">
+      <div class="row mb-3 align-items-center">
+        <div class="d-flex align-items-center mb-3 gap-2">
+
+          <!-- Status Tabs -->
+          <div class="btn-group" role="group">
+            <button class="btn btn-sm" [ngClass]="statusFilter === 'ALL' ? 'btn-primary' : 'btn-outline-primary'"
+              (click)="setStatus('ALL')">
+              All
+            </button>
+
+            <button class="btn btn-sm" [ngClass]="statusFilter === 'AVAILABLE' ? 'btn-success' : 'btn-outline-success'"
+              (click)="setStatus('AVAILABLE')">
+              Available
+            </button>
+
+            <button class="btn btn-sm" [ngClass]="statusFilter === 'OUT_OF_STOCK' ? 'btn-danger' : 'btn-outline-danger'"
+              (click)="setStatus('OUT_OF_STOCK')">
+              Out Of Stock
+            </button>
+
+            <button class="btn btn-sm" [ngClass]="statusFilter === 'EXPIRED' ? 'btn-warning' : 'btn-outline-warning'"
+              (click)="setStatus('EXPIRED')">
+              Expired
+            </button>
+          </div>
+
+          <!-- Spacer -->
+          <div class="flex-grow-1"></div>
+
+          <!-- Search -->
+          <div style="width: 280px;">
+            <input type="text" class="form-control form-control-sm" placeholder="Search name, brand, batch or expiry"
+              [(ngModel)]="searchText" />
+          </div>
+
+        </div>
+
+
+        <div class="table-responsive table-fixed-header">
+          <table class="table cart-table align-middle mb-0 table-striped">
+            <thead class="table-header">
+              <tr>
+                <th (click)="sort('id')" style="cursor:pointer">
+                  Id <i class="bi ms-1" [ngClass]="getSortIcon('id')"></i>
+                </th>
+                <th (click)="sort('name')" style="cursor:pointer">
+                  Medicine Name <i class="bi ms-1" [ngClass]="getSortIcon('name')"></i>
+                </th>
+                <th (click)="sort('brand')" style="cursor:pointer">
+                  Brand <i class="bi ms-1" [ngClass]="getSortIcon('brand')"></i>
+                </th>
+                <th (click)="sort('batchNumber')" style="cursor:pointer">
+                  Batch Number <i class="bi ms-1" [ngClass]="getSortIcon('batchNumber')"></i>
+                </th>
+                <th (click)="sort('expiryDate')" style="cursor:pointer">
+                  Expiry <i class="bi ms-1" [ngClass]="getSortIcon('expiryDate')"></i>
+                </th>
+                <th>Dosage</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th (click)="sort('updatedAt')" style="cursor:pointer">
+                  Updated <i class="bi ms-1" [ngClass]="getSortIcon('updatedAt')"></i>
+                </th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody class="table-body-scroll">
+              <tr *ngFor="let medicine of filteredMedicines(); let i = index"
+                [ngClass]="getExpiryClass(medicine.expiryDate)">
+                <td>{{ medicine.id }}</td>
+                <td>{{ medicine.name }}</td>
+                <td>{{ medicine.brand }}</td>
+                <td>{{ medicine.batchNumber}}</td>
+                <td>{{ medicine.expiryDate}}</td>
+                <td>{{ medicine.dosage }}</td>
+                <td>{{ medicine.price}}</td>
+                <td>{{ medicine.stock}}</td>
+                <td>{{ medicine.updatedAt | date:'yyyy-MMM-dd'}}</td>
+                <td class="text-center">
+                  aaa
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
