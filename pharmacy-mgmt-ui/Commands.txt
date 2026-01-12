@@ -64,7 +64,8 @@ ng g i models/Stock
 ng g c components/StockForm
 
 ng g s services/stock
-npm install @ng-bootstrap/ng-bootstrap@13
+npm i @ng-bootstrap/ng-bootstrap@13
+npm i ng2-charts chart.js
 
 Pipes
 ng g p pipes/gender-icon

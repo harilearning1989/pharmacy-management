@@ -1,26 +1,68 @@
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 15px;
+.dashboard {
+  background-color: #f8f9fa;
+  padding-bottom: 20px;
 }
 
+/* KPI Cards */
 .stat-card {
-  background: #fff;
-  padding: 15px;
-  border-radius: 6px;
+  border-radius: 12px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+
+  .icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 22px;
+  }
 }
 
-.quick-actions {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  margin-top: 20px;
-}
+/* Colors */
+.bg-primary { background-color: #0d6efd; }
+.bg-success { background-color: #198754; }
+.bg-danger { background-color: #dc3545; }
+.bg-warning { background-color: #ffc107; color: #000; }
+.bg-info { background-color: #0dcaf0; color: #000; }
+.bg-secondary { background-color: #6c757d; }
 
+/* Action Cards */
 .action-card {
-  background: #fff;
-  padding: 25px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 18px;
   text-align: center;
-  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background: #fff;
+
+  i {
+    font-size: 28px;
+    color: #0d6efd;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  span {
+    font-weight: 500;
+  }
+
+  &:hover {
+    background-color: #0d6efd;
+    color: #fff;
+
+    i {
+      color: #fff;
+    }
+  }
+}
+
+.report-card i {
+  color: #198754;
 }
