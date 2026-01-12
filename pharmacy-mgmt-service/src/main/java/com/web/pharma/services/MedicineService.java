@@ -18,5 +18,13 @@ public interface MedicineService {
     void generateAndSaveValidMedicines();
 
     List<MedicineResponseDto> searchMedicines(String keyword);
+
+    List<MedicineResponseDto> getAvailableMedicines();
+
+    List<MedicineResponseDto> getExpiredMedicines();
+
+    List<MedicineResponseDto> getOutOfStockMedicines();
+
+    List<MedicineResponseDto> getMedicinesByName(String medicineName);
 }
 

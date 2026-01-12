@@ -18,10 +18,12 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
 
         // Token expired / invalid
+        /*
         if (error.status === 401) {
           this.tokenService.clearToken();
-          //this.router.navigate(['/auth/login']);
+          this.router.navigate(['/auth/login']);
         }
+          */
 
         // Server down / network error
         if (error.status === 0) {

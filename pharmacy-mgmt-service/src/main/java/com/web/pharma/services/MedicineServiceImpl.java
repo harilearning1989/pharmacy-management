@@ -59,6 +59,36 @@ public class MedicineServiceImpl implements MedicineService {
     }
 
     @Override
+    public List<MedicineResponseDto> getAvailableMedicines() {
+        return medicineRepository.findAvailableMedicines(LocalDate.now()).stream()
+                .map(MedicineResponseDto::toDto)
+                .toList();
+    }
+
+    @Override
+    public List<MedicineResponseDto> getExpiredMedicines() {
+        return medicineRepository.findExpiredMedicines(LocalDate.now()).stream()
+                .map(MedicineResponseDto::toDto)
+                .toList();
+    }
+
+    @Override
+    public List<MedicineResponseDto> getOutOfStockMedicines() {
+        return medicineRepository.findOutOfStockMedicines().stream()
+                .map(MedicineResponseDto::toDto)
+                .toList();
+    }
+
+    @Override
+    public List<MedicineResponseDto> getMedicinesByName(String medicineName) {
+        return medicineRepository
+                .findByNameIgnoreCase(medicineName)
+                .stream()
+                .map(MedicineResponseDto::toDto)
+                .toList();
+    }
+
+    @Override
     public MedicineResponseDto updateMedicine(Long id, MedicineRequestDto dto) {
         Medicine medicine = medicineRepository.findById(id).orElseThrow();
         dto.applyTo(medicine);

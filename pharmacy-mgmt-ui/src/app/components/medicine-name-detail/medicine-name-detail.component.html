@@ -1,39 +1,18 @@
-<div class="container mt-3">
-  <div class="card mb-2 shadow-sm">
-    <div class="card-header d-flex align-items-center justify-content-center py-1">
-      <span>Show All Customers</span>
-    </div>
+<div class="modal-header">
+  <h5 class="modal-title">Medicine Name: {{ medicineName }} Full Details</h5>
+  <button type="button"
+          class="btn-close"
+          (click)="activeModal.dismiss()">
+  </button>
+</div>
 
+<div class="modal-body">
+
+  <div class="container mt-3">
+  <div class="card mb-2 shadow-sm">
     <div class="card-body">
       <div class="row mb-3 align-items-center">
         <div class="d-flex align-items-center mb-3 gap-2">
-
-          <!-- Status Tabs -->
-          <div class="btn-group" role="group">
-            <button class="btn btn-sm" [ngClass]="statusFilter === 'ALL' ? 'btn-primary' : 'btn-outline-primary'"
-              (click)="setStatus('ALL')">
-              All
-            </button>
-
-            <button class="btn btn-sm" [ngClass]="statusFilter === 'AVAILABLE' ? 'btn-success' : 'btn-outline-success'"
-              (click)="setStatus('AVAILABLE')">
-              Available
-            </button>
-
-            <button class="btn btn-sm" [ngClass]="statusFilter === 'OUT_OF_STOCK' ? 'btn-danger' : 'btn-outline-danger'"
-              (click)="setStatus('OUT_OF_STOCK')">
-              Out Of Stock
-            </button>
-
-            <button class="btn btn-sm" [ngClass]="statusFilter === 'EXPIRED' ? 'btn-warning' : 'btn-outline-warning'"
-              (click)="setStatus('EXPIRED')">
-              Expired
-            </button>
-          </div>
-
-          <!-- Spacer -->
-          <div class="flex-grow-1"></div>
-
           <!-- Search -->
           <div style="width: 280px;">
             <input type="text" class="form-control form-control-sm" placeholder="Search name, brand, batch or expiry"
@@ -49,9 +28,6 @@
               <tr>
                 <th (click)="sort('id')" style="cursor:pointer">
                   Id <i class="bi ms-1" [ngClass]="getSortIcon('id')"></i>
-                </th>
-                <th (click)="sort('name')" style="cursor:pointer">
-                  Medicine Name <i class="bi ms-1" [ngClass]="getSortIcon('name')"></i>
                 </th>
                 <th (click)="sort('brand')" style="cursor:pointer">
                   Brand <i class="bi ms-1" [ngClass]="getSortIcon('brand')"></i>
@@ -76,11 +52,6 @@
               <tr *ngFor="let medicine of filteredMedicines(); let i = index"
                 [ngClass]="getExpiryClass(medicine.expiryDate,medicine.stock)">
                 <td>{{ medicine.id }}</td>
-                <td>
-                  <a role="button" (click)="openEditModal(medicine.name)" class="text-primary">
-                    {{ medicine.name }}
-                  </a>
-                </td>
                 <td>{{ medicine.brand }}</td>
                 <td>{{ medicine.batchNumber}}</td>
                 <td>{{ medicine.expiryDate}}</td>
@@ -96,3 +67,5 @@
       </div>
     </div>
   </div>
+  
+</div>

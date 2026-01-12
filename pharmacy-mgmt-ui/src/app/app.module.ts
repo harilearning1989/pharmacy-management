@@ -8,11 +8,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./interceptor/auth.interceptor";
 import {ErrorInterceptor} from "./interceptor/error.interceptor";
 import { StockFormComponent } from './components/stock-form/stock-form.component';
+import { MedicineNameDetailComponent } from './components/medicine-name-detail/medicine-name-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StockFormComponent
+    StockFormComponent,
+    MedicineNameDetailComponent
   ],
   imports: [
     BrowserModule,

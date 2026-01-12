@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Medicine } from 'src/app/models/medicine';
 import { MedicineService } from 'src/app/services/medicine.service';
+import { MedicineNameDetailComponent } from '../medicine-name-detail/medicine-name-detail.component';
 
 @Component({
   selector: 'app-stock',
@@ -15,24 +17,75 @@ export class StockComponent implements OnInit {
   sortDirection: 'asc' | 'desc' = 'asc';
   sortColumn: string = '';
 
-  constructor(private medicineService: MedicineService) {
+  constructor(private medicineService: MedicineService,
+    private modalService: NgbModal
+  ) {
   }
 
   ngOnInit(): void {
-    this.loadAvailableStock();
+    this.loadTotalMedicines()
   }
 
-  loadAvailableStock() {
-    this.medicineService.loadAvailableStock().subscribe(data => this.medicines = data);
+  loadTotalMedicines() {
+    this.medicineService.loadTotalMedicines().subscribe(data => this.medicines = data);
+  }
+
+  loadAvailableMedicines() {
+    this.medicineService.loadAvailableMedicines().subscribe(data => this.medicines = data);
+  }
+
+  loadExpiredMedicines() {
+    this.medicineService.loadExpiredMedicines().subscribe(data => this.medicines = data);
+  }
+
+  loadOutOfStockMedicines() {
+    this.medicineService.loadOutOfStockMedicines().subscribe(data => this.medicines = data);
   }
 
   setStatus(status: any) {
     this.statusFilter = status;
+    this.medicines = [];
+
+    switch (status) {
+      case 'ALL':
+        // e.g. this.loadAllItems();
+        this.loadTotalMedicines();
+        break;
+
+      case 'AVAILABLE':
+        // e.g. this.filterByStatus('AVAILABLE');
+        this.loadAvailableMedicines();
+        break;
+
+      case 'OUT_OF_STOCK':
+        // e.g. this.filterByStatus('OUT_OF_STOCK');
+        this.loadOutOfStockMedicines();
+        break;
+
+      case 'EXPIRED':
+        // e.g. this.filterByStatus('EXPIRED');
+        this.loadExpiredMedicines();
+        break;
+
+      default:
+        console.warn('Unknown status:', status);
+        this.loadTotalMedicines();
+        break;
+    }
+
+  }
+
+  openEditModal(name: string) {
+    const modalRef = this.modalService.open(MedicineNameDetailComponent, {
+        size: 'lg',
+        backdrop: 'static'
+      });
+
+      // Pass data to modal
+      modalRef.componentInstance.medicineName = name;
   }
 
   /*
-  
-
   addStock() {
     const modalRef = this.modalService.open(StockFormComponent);
     modalRef.componentInstance.mode = 'Add';
@@ -55,7 +108,6 @@ export class StockComponent implements OnInit {
       this.stockService.deleteStock(id).subscribe(() => this.loadStocks());
     }
   }
-
   */
 
   filteredMedicines() {
@@ -72,42 +124,11 @@ export class StockComponent implements OnInit {
     );
   }
 
-  get filteredMedicines1() {
-    return this.medicines.filter(m => {
-
-      // 🔍 Search filter
-      const searchMatch =
-        !this.searchText ||
-        m.name?.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        m.brand?.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        m.batchNumber?.toLowerCase().includes(this.searchText.toLowerCase());
-
-      // 📦 Status filter
-      let statusMatch = true;
-
-      if (this.statusFilter === 'AVAILABLE') {
-        statusMatch = m.stock > 0 && !this.isExpired(m.expiryDate);
-      }
-
-      if (this.statusFilter === 'OUT_OF_STOCK') {
-        statusMatch = m.stock === 0;
-      }
-
-      if (this.statusFilter === 'EXPIRED') {
-        statusMatch = this.isExpired(m.expiryDate);
-      }
-
-      return searchMatch && statusMatch;
-    });
-  }
-
   isExpired(expiryDate: string): boolean {
     return new Date(expiryDate) < new Date();
   }
 
-
-
-  getExpiryClass(expiryDate: string): string {
+  getExpiryClass(expiryDate: string,stock: number): string {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -117,7 +138,7 @@ export class StockComponent implements OnInit {
     const diffInDays =
       (expiry.getTime() - today.getTime()) / (1000 * 60 * 60 * 24);
 
-    if (diffInDays < 0) {
+    if (diffInDays < 0 || stock == 0) {
       return 'expired-row'; // red
     }
 

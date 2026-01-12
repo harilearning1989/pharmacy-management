@@ -27,7 +27,7 @@ export class MedicineComponent implements OnInit {
   }
 
   loadMedicines() {
-    this.medicineService.getAllMedicines().subscribe(res => {
+    this.medicineService.loadTotalMedicines().subscribe(res => {
       this.medicines = res;
     });
   }

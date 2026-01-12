@@ -91,6 +91,32 @@ public class MedicineController {
         return medicineService.getMedicineById(id);
     }
 
+    // ---------------- GET by medicine name ----------------
+    @Operation(
+            summary = "Get medicines by name",
+            description = "Fetches medicines matching the given medicine name"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Medicines fetched successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MedicineResponseDto.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Invalid medicine name"),
+            @ApiResponse(responseCode = "404", description = "No medicines found")
+    })
+    @GetMapping("/byMedicineName")
+    public ResponseEntity<List<MedicineResponseDto>> getByMedicineName(
+            @RequestParam String medicineName
+    ) {
+        return ResponseEntity.ok(
+                medicineService.getMedicinesByName(medicineName)
+        );
+    }
+
     @Operation(
             summary = "Update a medicine",
             description = "Updates an existing medicine by its ID."
@@ -112,6 +138,66 @@ public class MedicineController {
     public MedicineResponseDto updateMedicine(@PathVariable Long id,
                                               @RequestBody MedicineRequestDto dto) {
         return medicineService.updateMedicine(id, dto);
+    }
+
+    @Operation(
+            summary = "Get available medicines",
+            description = "Fetches all medicines that are currently available."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Available medicines fetched successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MedicineResponseDto.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "403", description = "Forbidden")
+    })
+    @GetMapping("/available")
+    public List<MedicineResponseDto> getAvailableMedicines() {
+        return medicineService.getAvailableMedicines();
+    }
+
+    @Operation(
+            summary = "Get expired medicines",
+            description = "Fetches all expired medicines."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Expired medicines fetched successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MedicineResponseDto.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "403", description = "Forbidden")
+    })
+    @GetMapping("/expired")
+    public List<MedicineResponseDto> getExpiredMedicines() {
+        return medicineService.getExpiredMedicines();
+    }
+
+    @Operation(
+            summary = "Get out of stock medicines",
+            description = "Fetches medicines that are out of stock."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Out of stock medicines fetched successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MedicineResponseDto.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "403", description = "Forbidden")
+    })
+    @GetMapping("/outOfStock")
+    public List<MedicineResponseDto> getOutOfStockMedicines() {
+        return medicineService.getOutOfStockMedicines();
     }
 
     @Operation(

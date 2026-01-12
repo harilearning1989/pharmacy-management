@@ -14,12 +14,24 @@ export class MedicineService {
   constructor(private http: HttpClient) {
   }
 
-  getAllMedicines(): Observable<Medicine[]> {
+  loadTotalMedicines(): Observable<Medicine[]> {
     return this.http.get<Medicine[]>(`${this.baseUrl}medicines`);
   }
 
-  loadAvailableStock(): Observable<Medicine[]> {
-    return this.http.get<Medicine[]>(`${this.baseUrl}medicines`);
+  loadAvailableMedicines(): Observable<Medicine[]> {
+    return this.http.get<Medicine[]>(`${this.baseUrl}medicines/available`);
+  }
+
+  loadExpiredMedicines(): Observable<Medicine[]> {
+    return this.http.get<Medicine[]>(`${this.baseUrl}medicines/expired`);
+  }
+
+  loadOutOfStockMedicines(): Observable<Medicine[]> {
+    return this.http.get<Medicine[]>(`${this.baseUrl}medicines/outOfStock`);
+  }
+
+  loadMedicinesByName(medicineName: string) {
+    return this.http.get<Medicine[]>(`${this.baseUrl}medicines/byMedicineName`,{ params: { medicineName } });
   }
 
   deleteMedicine(id: number): Observable<void> {
@@ -33,8 +45,6 @@ export class MedicineService {
   }
 
   searchMedicineByNameOrBatchNumber(medicineOrBatchNumber: string) {
-    return this.http.get<Medicine[]>(`${this.baseUrl}medicines/searchName`,
-      { params: { medicineOrBatchNumber } }
-    );
+    return this.http.get<Medicine[]>(`${this.baseUrl}medicines/searchName`,{ params: { medicineOrBatchNumber } });
   }
 }
