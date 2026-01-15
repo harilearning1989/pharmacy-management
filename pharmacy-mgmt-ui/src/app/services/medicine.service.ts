@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Medicine } from "../models/medicine";
 import { environment } from 'src/environments/environment';
+import { MedicineCountDto } from '../models/medicine-count-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,9 @@ export class MedicineService {
 
   searchMedicineByNameOrBatchNumber(medicineOrBatchNumber: string) {
     return this.http.get<Medicine[]>(`${this.baseUrl}medicines/searchName`,{ params: { medicineOrBatchNumber } });
+  }
+
+  loadMedicineCountDetails(): Observable<MedicineCountDto> {
+    return this.http.get<MedicineCountDto>(`${this.baseUrl}medicines/count`);
   }
 }

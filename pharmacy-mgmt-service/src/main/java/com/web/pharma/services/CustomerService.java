@@ -1,6 +1,7 @@
 package com.web.pharma.services;
 
 import com.web.pharma.dtos.CustomerDto;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface CustomerService {
     List<CustomerDto> getAllCustomers();
     List<CustomerDto> searchCustomersByName(String name);
     List<CustomerDto> searchCustomersByPhone(String phone);
+
+    @Nullable Long getCustomerCount();
 }

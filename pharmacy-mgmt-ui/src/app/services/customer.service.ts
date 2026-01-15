@@ -55,4 +55,8 @@ export class CustomerService {
     );
   }
 
+  getCustomerCount(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}customers/count`);
+  }
+
 }

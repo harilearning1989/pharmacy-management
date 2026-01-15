@@ -36,33 +36,39 @@
 .action-card {
   border: 1px solid #e0e0e0;
   border-radius: 12px;
-  padding: 18px;
+  padding: 14px 8px; /* slightly reduced */
   text-align: center;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   background: #fff;
-
-  i {
-    font-size: 28px;
-    color: #0d6efd;
-    display: block;
-    margin-bottom: 8px;
-  }
-
-  span {
-    font-weight: 500;
-  }
-
-  &:hover {
-    background-color: #0d6efd;
-    color: #fff;
-
-    i {
-      color: #fff;
-    }
-  }
 }
+
+.action-card i {
+  font-size: 26px;
+  color: #0d6efd;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.action-card span {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.action-card:hover {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.action-card:hover i {
+  color: #fff;
+}
+
 
 .report-card i {
   color: #198754;
+}
+
+.bg-color{
+  background-color: #e2e8f0;
 }

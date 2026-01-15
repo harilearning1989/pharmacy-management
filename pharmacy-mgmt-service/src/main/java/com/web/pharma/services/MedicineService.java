@@ -1,7 +1,9 @@
 package com.web.pharma.services;
 
+import com.web.pharma.dtos.MedicineCountDto;
 import com.web.pharma.dtos.MedicineRequestDto;
 import com.web.pharma.dtos.MedicineResponseDto;
+import org.jspecify.annotations.Nullable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -26,5 +28,7 @@ public interface MedicineService {
     List<MedicineResponseDto> getOutOfStockMedicines();
 
     List<MedicineResponseDto> getMedicinesByName(String medicineName);
+
+    @Nullable MedicineCountDto getMedicineCounts();
 }
 

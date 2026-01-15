@@ -92,5 +92,29 @@ public class CustomerRestController {
         return ResponseEntity.ok(service.searchCustomersByPhone(phone));
     }
 
+    @GetMapping("/count")
+    @Operation(
+            summary = "Get total customer count",
+            description = "Retrieve the total number of customers. Admin role required."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Customer count retrieved successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Long.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Forbidden, insufficient permissions"
+            )
+    })
+    public ResponseEntity<Long> getCustomerCount() {
+        return ResponseEntity.ok(service.getCustomerCount());
+    }
+
+
 }
 

@@ -70,5 +70,9 @@ public class CustomerServiceImpl implements CustomerService {
                 .toList();
     }
 
+    public Long getCustomerCount() {
+        return customerRepository.count();
+    }
+
 }
 

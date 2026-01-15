@@ -70,4 +70,9 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
     })
     Optional<Sale> findWithDetailsById(Long id);
 
+    List<Sale> findBySaleDateBetween(
+            LocalDateTime start,
+            LocalDateTime end
+    );
+
 }

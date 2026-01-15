@@ -2,6 +2,7 @@ package com.web.pharma.controls;
 
 import com.web.pharma.dtos.SaleHistoryDetailDto;
 import com.web.pharma.dtos.SaleHistoryDto;
+import com.web.pharma.dtos.SalesSummaryResponseDto;
 import com.web.pharma.services.SaleHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -66,62 +68,87 @@ public class SaleHistoryController {
         return saleHistoryService.getSaleById(saleId);
     }
 
-
     @Operation(
-            summary = "Get today's sales",
-            description = "Retrieves all sales made today."
+            summary = "Get today's sales summary",
+            description = "Retrieves today's sales with total count, amount, discount, and GST collected."
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Today's sales retrieved successfully",
+                    description = "Today's sales summary retrieved successfully",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = SaleHistoryDto.class)
+                            schema = @Schema(implementation = SalesSummaryResponseDto.class)
                     )
             )
     })
     @GetMapping("/today")
-    public List<SaleHistoryDto> today() {
-        return saleHistoryService.getTodaySales();
+    public SalesSummaryResponseDto todaySalesSummary() {
+        return saleHistoryService.getTodaySalesSummary();
     }
 
     @Operation(
-            summary = "Get weekly sales",
-            description = "Retrieves all sales made during the current week."
+            summary = "Get this week's sales summary",
+            description = "Retrieves this week's sales with totals and sales list."
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Weekly sales retrieved successfully",
+                    description = "This week's sales summary retrieved successfully",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = SaleHistoryDto.class)
+                            schema = @Schema(implementation = SalesSummaryResponseDto.class)
                     )
             )
     })
-    @GetMapping("/weekly")
-    public List<SaleHistoryDto> weekly() {
-        return saleHistoryService.getWeeklySales();
+    @GetMapping("/week")
+    public SalesSummaryResponseDto weekSalesSummary() {
+        return saleHistoryService.getThisWeekSalesSummary();
     }
 
     @Operation(
-            summary = "Get monthly sales",
-            description = "Retrieves all sales made during the current month."
+            summary = "Get this month's sales summary",
+            description = "Retrieves this month's sales with totals and sales list."
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Monthly sales retrieved successfully",
+                    description = "This month's sales summary retrieved successfully",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = SaleHistoryDto.class)
+                            schema = @Schema(implementation = SalesSummaryResponseDto.class)
                     )
             )
     })
-    @GetMapping("/monthly")
-    public List<SaleHistoryDto> monthly() {
-        return saleHistoryService.getMonthlySales();
+    @GetMapping("/month")
+    public SalesSummaryResponseDto monthSalesSummary() {
+        return saleHistoryService.getThisMonthSalesSummary();
+    }
+
+    @Operation(
+            summary = "Get sales summary by date range",
+            description = "Retrieves sales summary for a specific date range."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Sales summary retrieved successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = SalesSummaryResponseDto.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Invalid date range")
+    })
+    @GetMapping("/summary")
+    public SalesSummaryResponseDto salesSummaryByDateRange(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
+    ) {
+        return saleHistoryService.getSalesSummaryByDateRange(
+                startDate.atStartOfDay(),
+                endDate.atTime(23, 59, 59)
+        );
     }
 
     @Operation(
@@ -184,5 +211,25 @@ public class SaleHistoryController {
     ) {
         return saleHistoryService.getSalesByCustomer(customerId);
     }
+
+    @Operation(
+            summary = "Get total sales count",
+            description = "Retrieves the total number of sales in the system."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Total sales count retrieved successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Long.class)
+                    )
+            )
+    })
+    @GetMapping("/count")
+    public Long totalSalesCount() {
+        return saleHistoryService.getTotalSalesCount();
+    }
+
 }
 

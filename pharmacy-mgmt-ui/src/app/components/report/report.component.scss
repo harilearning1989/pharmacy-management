@@ -1,0 +1,94 @@
+.reports {
+  background-color: #f8f9fa;
+  padding-bottom: 20px;
+}
+
+.kpi-card {
+  border-radius: 12px;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+.kpi-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.bg-primary { background-color: #0d6efd; }
+.bg-success { background-color: #198754; }
+.bg-warning { background-color: #ffc107; color: #000; }
+.bg-info { background-color: #0dcaf0; color: #000; }
+
+.card-header {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  background-color: #e2e8f0;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Table outer border */
+.cart-table {
+  border: 1px solid #d1d5db; /* darker border */
+  font-size: 11px;
+}
+
+/* ================= HEADER (KEEP AS IS) ================= */
+.table-fixed-header {
+  height: 40vh; /* Table body will take 60% of viewport height */
+  overflow-y: auto;
+}
+
+.table-fixed-header thead th {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 10;
+}
+
+.cart-table thead th {
+  background-color: #e2e8f0;
+  text-align: center;
+}
+
+/* ================= BODY ROW HEIGHT FIX ================= */
+.cart-table tbody td {
+  padding: 6px 6px !important;   /* main height control */
+  font-size: 11px;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+  text-align: center;
+}
+
+.filters-row {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Inputs take more space */
+.filter-item {
+  flex: 1.2;
+  min-width: 140px;
+}
+
+/* Buttons are compact and equal */
+.button-item {
+  flex: 0.8;
+  min-width: 100px;
+}
+
+.bg-color{
+  background-color: #e2e8f0;
+}

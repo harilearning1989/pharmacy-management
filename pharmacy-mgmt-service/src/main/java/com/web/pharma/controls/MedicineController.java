@@ -1,5 +1,6 @@
 package com.web.pharma.controls;
 
+import com.web.pharma.dtos.MedicineCountDto;
 import com.web.pharma.dtos.MedicineRequestDto;
 import com.web.pharma.dtos.MedicineResponseDto;
 import com.web.pharma.services.MedicineService;
@@ -250,6 +251,26 @@ public class MedicineController {
             @RequestParam("medicineOrBatchNumber") String medicineOrBatchNumber
     ) {
         return medicineService.searchMedicines(medicineOrBatchNumber);
+    }
+
+    @GetMapping("/count")
+    @Operation(
+            summary = "Get medicine counts",
+            description = "Retrieve total, available, out-of-stock, and expired medicine counts."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Medicine counts retrieved successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MedicineCountDto.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "403", description = "Forbidden")
+    })
+    public ResponseEntity<MedicineCountDto> getMedicineCounts() {
+        return ResponseEntity.ok(medicineService.getMedicineCounts());
     }
 
     @GetMapping("/download-valid-sample")

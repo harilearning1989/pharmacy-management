@@ -33,5 +33,11 @@ public interface MedicineRepository extends JpaRepository<Medicine, Long> {
     List<Medicine> findOutOfStockMedicines();
 
     List<Medicine> findByNameIgnoreCase(String medicineName);
+
+    long countByStockGreaterThanAndExpiryDateGreaterThanEqual(int stock, LocalDate date);
+
+    long countByStock(int stock);
+
+    long countByExpiryDateBefore(LocalDate date);
 }
 

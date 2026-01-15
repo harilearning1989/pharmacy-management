@@ -1,5 +1,6 @@
 package com.web.pharma.services;
 
+import com.web.pharma.dtos.MedicineCountDto;
 import com.web.pharma.dtos.MedicineRequestDto;
 import com.web.pharma.dtos.MedicineResponseDto;
 import com.web.pharma.models.Medicine;
@@ -93,6 +94,24 @@ public class MedicineServiceImpl implements MedicineService {
         Medicine medicine = medicineRepository.findById(id).orElseThrow();
         dto.applyTo(medicine);
         return MedicineResponseDto.toDto(medicine);
+    }
+
+    @Override
+    public MedicineCountDto getMedicineCounts() {
+        LocalDate today = LocalDate.now();
+
+        long total = medicineRepository.count();
+        long available = medicineRepository
+                .countByStockGreaterThanAndExpiryDateGreaterThanEqual(0, today);
+        long outOfStock = medicineRepository.countByStock(0);
+        long expired = medicineRepository.countByExpiryDateBefore(today);
+
+        return new MedicineCountDto(
+                total,
+                available,
+                outOfStock,
+                expired
+        );
     }
 
     @Override

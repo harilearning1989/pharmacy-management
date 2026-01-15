@@ -1,1 +1,134 @@
-<p>report works!</p>
+<div class="container-fluid reports">
+
+  <!-- PAGE HEADER -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold">Reports</h4>
+    <div>
+      <button class="btn btn-outline-success me-2" (click)="export('excel')">
+        <i class="bi bi-file-earmark-excel"></i> Excel
+      </button>
+      <button class="btn btn-outline-danger" (click)="export('pdf')">
+        <i class="bi bi-file-earmark-pdf"></i> PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body filters-row">
+  <div class="filter-item">
+    <label class="form-label">From Date</label>
+    <input type="date" class="form-control" [(ngModel)]="filters.fromDate">
+  </div>
+
+  <div class="filter-item">
+    <label class="form-label">To Date</label>
+    <input type="date" class="form-control" [(ngModel)]="filters.toDate">
+  </div>
+
+  <div class="filter-item">
+    <label class="form-label">Report Type</label>
+    <select class="form-select" [(ngModel)]="filters.reportType">
+      <option value="SALES">Sales Report</option>
+      <option value="PURCHASE">Purchase Report</option>
+      <option value="STOCK">Stock Report</option>
+    </select>
+  </div>
+
+  <div class="button-item">
+    <button class="btn btn-primary w-100" (click)="applyFilters()">
+      Apply
+    </button>
+  </div>
+
+  <div class="button-item">
+    <button class="btn btn-outline-primary w-100">
+      Today
+    </button>
+  </div>
+
+  <div class="button-item">
+    <button class="btn btn-outline-primary w-100">
+      This Week
+    </button>
+  </div>
+
+  <div class="button-item">
+    <button class="btn btn-outline-primary w-100">
+      This Month
+    </button>
+  </div>
+</div>
+
+
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="row g-3 mb-4">
+    <div class="col-md-3" *ngFor="let kpi of kpis">
+      <div class="card kpi-card shadow-sm">
+        <div class="card-body d-flex align-items-center bg-color">
+          <div class="kpi-icon bg-{{kpi.color}}">
+            <i class="bi {{ kpi.icon }}"></i>
+          </div>
+          <div class="ms-3">
+            <div class="text-muted small">{{ kpi.title }}</div>
+            <div class="fw-bold fs-5">{{ kpi.value }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SALES TABLE -->
+  <div class="card shadow-sm">
+    <div class="card-header d-flex align-items-center justify-content-center py-1">
+      <span>Show All Customers</span>
+    </div>
+    <div class="card-body p-0">
+
+      <div class="table-responsive table-fixed-header">
+        <table class="table cart-table align-middle mb-0 table-striped">
+          <thead class="table-header">
+            <tr>
+              <th (click)="sort('saleId')" style="cursor:pointer">
+                SaleId <i class="bi ms-1" [ngClass]="getSortIcon('saleId')"></i>
+              </th>
+              <th (click)="sort('customerName')" style="cursor:pointer">
+                Customer Name <i class="bi ms-1" [ngClass]="getSortIcon('customerName')"></i>
+              </th>
+              <th (click)="sort('customerPhone')" style="cursor:pointer">
+                Customer Phone <i class="bi ms-1" [ngClass]="getSortIcon('customerPhone')"></i>
+              </th>
+              <th>Grand Total</th>
+              <th>Payment</th>
+              <th (click)="sort('saleDate')" style="cursor:pointer">
+                Sale Date <i class="bi ms-1" [ngClass]="getSortIcon('saleDate')"></i>
+              </th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody class="table-body-scroll">
+            <tr *ngFor="let cust of filterCustomer(); let i = index">
+              <td>{{ cust.saleId }}</td>
+              <td>{{ cust.customerName }}</td>
+              <td>{{ cust.customerPhone }}</td>
+              <td class="text-end fw-semibold">{{ cust.grandTotal }}</td>
+              <td>
+                <span class="badge bg-success">{{ cust.paymentMethod }}</span>
+              </td>
+              <td>{{ cust.saleDate | date:'yyyy-MMM-dd' }}</td>
+              <td>{{ cust.username}}</td>
+            </tr>
+            <tr *ngIf="!sales.length">
+              <td colspan="5" class="text-center text-muted py-3">
+                No records found
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -32,4 +32,8 @@ export class SaleService {
   emailInvoice(id: number) {
     return this.http.post(`/api/sales/${id}/email-invoice`, {});
   }
+
+  getSoldMedicineCount(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}sales/history/count`);
+  }
 }
