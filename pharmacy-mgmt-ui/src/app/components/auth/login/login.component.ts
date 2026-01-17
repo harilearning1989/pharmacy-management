@@ -38,10 +38,10 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.errorMessage = null;
-    this.router.navigate(['/home']);
     this.authService.login(this.loginForm.value).subscribe({
       next: res => {
         this.tokenService.saveToken(res.token);
+        this.router.navigate(['/home']);
         //this.router.navigate(['/dashboard']);
       },
       error: err => {

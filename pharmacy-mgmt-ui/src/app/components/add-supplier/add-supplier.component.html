@@ -1,0 +1,132 @@
+<!-- add-supplier.component.html -->
+<div class="modal-header">
+    <h5 class="modal-title">
+        {{ isEditMode ? 'Edit Supplier' : 'Add Supplier' }}
+    </h5>
+    <button type="button" class="btn-close btn-close-danger" (click)="cancel()"></button>
+</div>
+
+<form [formGroup]="supplierForm" (ngSubmit)="submit()">
+    <div class="modal-body">
+        <div class="row g-3">
+
+            <!-- Supplier Code -->
+            <div class="col-md-6">
+                <label class="form-label">Supplier Code *</label>
+                <input type="text" class="form-control" formControlName="supplierCode"
+                    [class.is-invalid]="isInvalid('supplierCode')">
+
+                <div class="invalid-feedback">
+                    Supplier code must be 3–20 characters
+                </div>
+            </div>
+
+            <!-- Supplier Name -->
+            <div class="col-md-6">
+                <label class="form-label">Supplier Name *</label>
+                <input type="text" class="form-control" formControlName="supplierName"
+                    [class.is-invalid]="isInvalid('supplierName')">
+
+                <div class="invalid-feedback">
+                    Supplier name is required (min 3 characters)
+                </div>
+            </div>
+
+            <!-- Contact Person -->
+            <div class="col-md-6">
+                <label class="form-label">Contact Person</label>
+                <input type="text" class="form-control" formControlName="contactPerson"
+                    [class.is-invalid]="isInvalid('contactPerson')">
+
+                <div class="invalid-feedback">
+                    Maximum 100 characters allowed
+                </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="col-md-6">
+                <label class="form-label">Phone</label>
+                <input type="text" class="form-control" formControlName="phone" [class.is-invalid]="isInvalid('phone')">
+
+                <div class="invalid-feedback">
+                    Enter a valid 10-digit mobile number
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" formControlName="email"
+                    [class.is-invalid]="isInvalid('email')">
+
+                <div class="invalid-feedback">
+                    Enter a valid email address
+                </div>
+            </div>
+
+            <!-- GST -->
+            <div class="col-md-6">
+                <label class="form-label">GST Number</label>
+                <input type="text" class="form-control" formControlName="gstNumber"
+                    [class.is-invalid]="isInvalid('gstNumber')">
+
+                <div class="invalid-feedback">
+                    Invalid GST format
+                </div>
+            </div>
+
+            <!-- Drug License -->
+            <div class="col-md-6">
+                <label class="form-label">Drug License No</label>
+                <input type="text" class="form-control" formControlName="drugLicenseNumber"
+                    [class.is-invalid]="isInvalid('drugLicenseNumber')">
+
+                <div class="invalid-feedback">
+                    Maximum 50 characters allowed
+                </div>
+            </div>
+
+            <!-- Bank Name -->
+            <div class="col-md-6">
+                <label class="form-label">Bank Name</label>
+                <input type="text" class="form-control" formControlName="bankName"
+                    [class.is-invalid]="isInvalid('bankName')">
+
+                <div class="invalid-feedback">
+                    Maximum 100 characters allowed
+                </div>
+            </div>
+
+            <!-- Account Number -->
+            <div class="col-md-6">
+                <label class="form-label">Account Number</label>
+                <input type="text" class="form-control" formControlName="bankAccountNumber"
+                    [class.is-invalid]="isInvalid('bankAccountNumber')">
+
+                <div class="invalid-feedback">
+                    Account number must be 9–18 digits
+                </div>
+            </div>
+
+            <!-- IFSC -->
+            <div class="col-md-6">
+                <label class="form-label">IFSC Code</label>
+                <input type="text" class="form-control" formControlName="ifscCode"
+                    [class.is-invalid]="isInvalid('ifscCode')">
+
+                <div class="invalid-feedback">
+                    Invalid IFSC code
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
+
+        <button type="submit" class="btn btn-primary" [disabled]="submitting || supplierForm.invalid">
+            {{ isEditMode ? 'Update Supplier' : 'Save Supplier' }}
+        </button>
+    </div>
+</form>

@@ -9,12 +9,14 @@ import {AuthInterceptor} from "./interceptor/auth.interceptor";
 import {ErrorInterceptor} from "./interceptor/error.interceptor";
 import { StockFormComponent } from './components/stock-form/stock-form.component';
 import { MedicineNameDetailComponent } from './components/medicine-name-detail/medicine-name-detail.component';
+import { AddSupplierComponent } from './components/add-supplier/add-supplier.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StockFormComponent,
-    MedicineNameDetailComponent
+    MedicineNameDetailComponent,
+    AddSupplierComponent
   ],
   imports: [
     BrowserModule,

@@ -214,3 +214,23 @@ CREATE TABLE sale_medicines (
 CREATE INDEX idx_sales_customer_id ON sales(customer_id);
 CREATE INDEX idx_sale_medicines_sale_id ON sale_medicines(sale_id);
 CREATE INDEX idx_sale_medicines_medicine_id ON sale_medicines(medicine_id);
+
+---------------------------Supplier Details--------------------------
+CREATE TYPE supplier_status AS ENUM ('ACTIVE', 'INACTIVE');
+CREATE TABLE suppliers (
+    id BIGSERIAL PRIMARY KEY,
+    supplier_code VARCHAR(50) UNIQUE NOT NULL,
+    supplier_name VARCHAR(255) NOT NULL,
+    contact_person VARCHAR(255),
+    phone VARCHAR(20),
+    email VARCHAR(255),
+    gst_number VARCHAR(50),
+    drug_license_number VARCHAR(50),
+    bank_name VARCHAR(100),
+    bank_account_number VARCHAR(50),
+    ifsc_code VARCHAR(20),
+    status VARCHAR(10),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
