@@ -22,14 +22,17 @@
       </div>
 
       <div class="table-responsive table-fixed-header">
+        <div *ngIf="alertMessage" class="alert alert-{{alertType}} alert-dismissible fade show">
+          {{ alertMessage }}
+        </div>
         <table class="table cart-table align-middle mb-0 table-striped">
           <thead class="table-header">
             <tr>
-              <th (click)="sort('saleId')" style="cursor:pointer">
-                SupplierId <i class="bi ms-1" [ngClass]="getSortIcon('saleId')"></i>
+              <th (click)="sort('id')" style="cursor:pointer">
+                SupplierId <i class="bi ms-1" [ngClass]="getSortIcon('id')"></i>
               </th>
-              <th (click)="sort('customerName')" style="cursor:pointer">
-                Supplier Name <i class="bi ms-1" [ngClass]="getSortIcon('customerName')"></i>
+              <th (click)="sort('supplierName')" style="cursor:pointer">
+                Supplier Name <i class="bi ms-1" [ngClass]="getSortIcon('supplierName')"></i>
               </th>
               <th>Contact Person</th>
               <th (click)="sort('email')" style="cursor:pointer">
@@ -45,21 +48,22 @@
             </tr>
           </thead>
           <tbody class="table-body-scroll">
-            <tr *ngFor="let cust of filterCustomer(); let i = index">
-              <td>{{ cust.id }}</td>
-              <td>{{ cust.supplierName }}</td>
-              <td>{{ cust.contactPerson }}</td>
-              <td>{{ cust.email }}</td>
-              <td>{{ cust.phone }}</td>
-              <td>{{ cust.gstNumber }}</td>
-              <td>{{ cust.drugLicenseNumber }}</td>
-              <td>{{ cust.createdAt | date:'yyyy-MMM-dd'}}</td>
+            <tr *ngFor="let supplier of filterCustomer(); let i = index">
+              <td>{{ supplier.id }}</td>
+              <td>{{ supplier.supplierName }}</td>
+              <td>{{ supplier.contactPerson }}</td>
+              <td>{{ supplier.email }}</td>
+              <td>{{ supplier.phone }}</td>
+              <td>{{ supplier.gstNumber }}</td>
+              <td>{{ supplier.drugLicenseNumber }}</td>
+              <td>{{ supplier.createdAt | date:'yyyy-MMM-dd'}}</td>
               <td>
-                <button class="btn btn-warning btn-sm p-0 me-1" style="width:24px; height:24px;" title="Edit" (click)="editSupplier(cust)">
+                <button class="btn btn-warning btn-sm p-0 me-1" style="width:24px; height:24px;" title="Edit"
+                  (click)="editSupplier(supplier)">
                   <i class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i>
                 </button>
                 <button class="btn btn-danger btn-sm p-0" style="width:24px; height:24px;"
-                  (click)="deleteCustomer(cust.id)" title="Delete">
+                  (click)="openDeleteModal(supplier)" title="Delete">
                   <i class="bi bi-trash-fill" style="font-size: 0.8rem;"></i>
                 </button>
               </td>

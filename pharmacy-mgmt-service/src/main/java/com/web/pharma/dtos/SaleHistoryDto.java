@@ -19,7 +19,17 @@ public record SaleHistoryDto(
         String userPhone
 ) {
     public static SaleHistoryDto toDto(Sale sale) {
-        //SaleHistoryDto dto = new SaleHistoryDto();
-        return null;
+        return new SaleHistoryDto(
+                sale.getId(),
+                sale.getSubtotal(),
+                sale.getDiscount(),
+                sale.getGst(),
+                sale.getGrandTotal(),
+                sale.getPaymentMethod(),
+                sale.getSaleDate(),
+                sale.getCustomer().getName(),
+                sale.getCustomer().getPhone(),
+                null,
+                null);
     }
 }

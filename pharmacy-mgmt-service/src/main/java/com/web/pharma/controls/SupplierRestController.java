@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -67,7 +68,7 @@ public class SupplierRestController {
     )
     @ApiResponse(responseCode = "200", description = "Supplier updated successfully")
     @ApiResponse(responseCode = "404", description = "Supplier not found")
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<SupplierDto> updateSupplier(
             @PathVariable Long id,
             @RequestBody SupplierDto requestDto) {

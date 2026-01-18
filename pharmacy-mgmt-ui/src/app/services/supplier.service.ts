@@ -30,7 +30,7 @@ export class SupplierService {
 
   /** Update supplier */
   updateSupplier(id: number, dto: SupplierDto): Observable<SupplierDto> {
-    return this.http.put<SupplierDto>(`${this.baseUrl}suppliers/${id}`, dto);
+    return this.http.patch<SupplierDto>(`${this.baseUrl}suppliers/${id}`, dto);
   }
 
   /** Delete supplier */

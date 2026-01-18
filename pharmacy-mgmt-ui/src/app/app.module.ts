@@ -10,13 +10,15 @@ import {ErrorInterceptor} from "./interceptor/error.interceptor";
 import { StockFormComponent } from './components/stock-form/stock-form.component';
 import { MedicineNameDetailComponent } from './components/medicine-name-detail/medicine-name-detail.component';
 import { AddSupplierComponent } from './components/add-supplier/add-supplier.component';
+import { DeleteConfirmationModalComponent } from './components/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StockFormComponent,
     MedicineNameDetailComponent,
-    AddSupplierComponent
+    AddSupplierComponent,
+    DeleteConfirmationModalComponent
   ],
   imports: [
     BrowserModule,

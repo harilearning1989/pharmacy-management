@@ -3,6 +3,7 @@ package com.web.pharma.dtos;
 import com.web.pharma.models.Supplier;
 
 import java.time.LocalDateTime;
+import java.util.function.Consumer;
 
 public record SupplierDto(
         Long id,
@@ -37,15 +38,16 @@ public record SupplierDto(
     }
 
     public void updateEntity(Supplier supplier) {
-        supplier.setSupplierName(supplierName);
-        supplier.setContactPerson(contactPerson);
-        supplier.setPhone(phone);
-        supplier.setEmail(email);
-        supplier.setGstNumber(gstNumber);
-        supplier.setDrugLicenseNumber(drugLicenseNumber);
-        supplier.setBankName(bankName);
-        supplier.setBankAccountNumber(bankAccountNumber);
-        supplier.setIfscCode(ifscCode);
+        updateIfChanged(supplierName, supplier.getSupplierName(), supplier::setSupplierName);
+        updateIfChanged(contactPerson, supplier.getContactPerson(), supplier::setContactPerson);
+        updateIfChanged(phone, supplier.getPhone(), supplier::setPhone);
+        updateIfChanged(email, supplier.getEmail(), supplier::setEmail);
+        updateIfChanged(gstNumber, supplier.getGstNumber(), supplier::setGstNumber);
+        updateIfChanged(drugLicenseNumber, supplier.getDrugLicenseNumber(), supplier::setDrugLicenseNumber);
+        updateIfChanged(bankName, supplier.getBankName(), supplier::setBankName);
+        updateIfChanged(bankAccountNumber, supplier.getBankAccountNumber(), supplier::setBankAccountNumber);
+        updateIfChanged(ifscCode, supplier.getIfscCode(), supplier::setIfscCode);
+        updateIfChanged(status, supplier.getStatus(), supplier::setStatus);
     }
 
     public static SupplierDto fromEntity(Supplier supplier) {
@@ -66,5 +68,12 @@ public record SupplierDto(
                 supplier.getStatus()
         );
     }
+
+    private <T> void updateIfChanged(T newValue, T oldValue, Consumer<T> setter) {
+        if (newValue != null && !newValue.equals(oldValue)) {
+            setter.accept(newValue);
+        }
+    }
+
 }
 

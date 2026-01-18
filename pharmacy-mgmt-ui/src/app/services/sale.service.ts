@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { environment } from 'src/environments/environment';
 import { SaleHistory } from '../models/sale-history';
 import { SaleHistoryDetail } from '../models/sale-history-detail';
+import { SalesSummaryResponseDto } from '../models/sales-summary-response-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,9 @@ export class SaleService {
 
   getSoldMedicineCount(): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}sales/history/count`);
+  }
+
+  getSummary(type: 'today' | 'week' | 'month'): Observable<SalesSummaryResponseDto> {
+    return this.http.get<SalesSummaryResponseDto>(`${this.baseUrl}sales/history/${type}`);
   }
 }

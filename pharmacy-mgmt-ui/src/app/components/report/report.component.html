@@ -16,51 +16,52 @@
   <!-- FILTERS -->
   <div class="card shadow-sm mb-4">
     <div class="card-body filters-row">
-  <div class="filter-item">
-    <label class="form-label">From Date</label>
-    <input type="date" class="form-control" [(ngModel)]="filters.fromDate">
-  </div>
+      <div class="filter-item">
+        <label class="form-label">From Date</label>
+        <input type="date" class="form-control" [(ngModel)]="filters.fromDate">
+      </div>
 
-  <div class="filter-item">
-    <label class="form-label">To Date</label>
-    <input type="date" class="form-control" [(ngModel)]="filters.toDate">
-  </div>
+      <div class="filter-item">
+        <label class="form-label">To Date</label>
+        <input type="date" class="form-control" [(ngModel)]="filters.toDate">
+      </div>
 
-  <div class="filter-item">
-    <label class="form-label">Report Type</label>
-    <select class="form-select" [(ngModel)]="filters.reportType">
-      <option value="SALES">Sales Report</option>
-      <option value="PURCHASE">Purchase Report</option>
-      <option value="STOCK">Stock Report</option>
-    </select>
-  </div>
+      <div class="filter-item">
+        <label class="form-label">Report Type</label>
+        <select class="form-select" [(ngModel)]="filters.reportType">
+          <option value="SALES">Sales Report</option>
+          <option value="PURCHASE">Purchase Report</option>
+          <option value="STOCK">Stock Report</option>
+        </select>
+      </div>
 
-  <div class="button-item">
-    <button class="btn btn-primary w-100" (click)="applyFilters()">
-      Apply
-    </button>
-  </div>
+      <div class="button-item">
+        <button class="btn btn-primary w-100" (click)="applyFilters()">
+          Apply
+        </button>
+      </div>
 
-  <div class="button-item">
-    <button class="btn btn-outline-primary w-100">
-      Today
-    </button>
-  </div>
+      <div class="button-item">
+        <button class="btn w-100" [ngClass]="selected === 'today' ? 'btn-primary' : 'btn-outline-primary'"
+          (click)="loadSummary('today')">
+          Today
+        </button>
+      </div>
 
-  <div class="button-item">
-    <button class="btn btn-outline-primary w-100">
-      This Week
-    </button>
-  </div>
+      <div class="button-item">
+        <button class="btn w-100" [ngClass]="selected === 'week' ? 'btn-primary' : 'btn-outline-primary'"
+          (click)="loadSummary('week')">
+          This Week
+        </button>
+      </div>
 
-  <div class="button-item">
-    <button class="btn btn-outline-primary w-100">
-      This Month
-    </button>
-  </div>
-</div>
-
-
+      <div class="button-item">
+        <button class="btn w-100" [ngClass]="selected === 'month' ? 'btn-primary' : 'btn-outline-primary'"
+          (click)="loadSummary('month')">
+          This Month
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- KPI CARDS -->

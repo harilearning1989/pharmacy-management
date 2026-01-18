@@ -41,9 +41,11 @@ public class Supplier {
     private String status;
 
     @CreationTimestamp
+    @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
 }
 

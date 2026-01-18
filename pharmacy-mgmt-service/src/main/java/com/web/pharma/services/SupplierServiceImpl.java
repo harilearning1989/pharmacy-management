@@ -26,7 +26,6 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public SupplierDto updateSupplier(Long id, SupplierDto dto) {
-
         Supplier supplier = supplierRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Supplier not found"));
 

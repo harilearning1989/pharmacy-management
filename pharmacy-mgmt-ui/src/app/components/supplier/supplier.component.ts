@@ -3,6 +3,7 @@ import { SupplierService } from 'src/app/services/supplier.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddSupplierComponent } from '../add-supplier/add-supplier.component';
 import { SupplierDto } from 'src/app/models/supplier-dto';
+import { DeleteConfirmationModalComponent } from '../delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-supplier',
@@ -15,6 +16,8 @@ export class SupplierComponent implements OnInit {
   searchText: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
   sortColumn: string = '';
+  alertMessage: string = '';
+  alertType: string = '';
 
   constructor(private supplierService: SupplierService,
     private ngbModal: NgbModal
@@ -31,11 +34,54 @@ export class SupplierComponent implements OnInit {
     });
   }
 
-  deleteCustomer(id: number) {
-    if (confirm('Are you sure you want to delete this medicine?')) {
-      this.supplierService.deleteSupplier(id).subscribe(() => this.getAllSuppliers());
+ openDeleteModal(supplier: SupplierDto): void {
+  const modalRef = this.ngbModal.open(DeleteConfirmationModalComponent, {
+    centered: true,
+    backdrop: 'static'
+  });
+
+  modalRef.componentInstance.title = 'Delete Customer';
+  modalRef.componentInstance.message =
+    `Are you sure you want to delete ${supplier.supplierName}?`;
+
+  modalRef.result.then(
+    (confirmed) => {
+      if (confirmed) {
+        this.deleteSupplier(supplier.id);
+      }
+    },
+    () => {} // dismissed
+  );
+}
+
+deleteSupplier(id: number): void {
+  this.supplierService.deleteSupplier(id).subscribe({
+    next: () => {
+      this.showSuccess('Supplier deleted successfully');
+      this.getAllSuppliers(); // refresh API
+    },
+    error: () => {
+      this.showError('Failed to delete supplier');
     }
-  }
+  });
+}
+
+showSuccess(message: string) {
+  this.alertMessage = message;
+  this.alertType = 'success';
+
+  setTimeout(() => {
+    this.alertMessage = '';
+  }, 3000);
+}
+
+showError(message: string) {
+  this.alertMessage = message;
+  this.alertType = 'danger';
+  setTimeout(() => {
+    this.alertMessage = '';
+  }, 3000);
+}
 
   addSupplierModal() {
     const modalRef = this.ngbModal.open(AddSupplierComponent, {

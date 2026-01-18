@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SaleHistory } from 'src/app/models/sale-history';
+import { SalesSummaryResponseDto } from 'src/app/models/sales-summary-response-dto';
 import { SaleService } from 'src/app/services/sale.service';
 
 @Component({
@@ -13,6 +14,8 @@ export class ReportComponent implements OnInit {
   sortDirection: 'asc' | 'desc' = 'asc';
   sortColumn: string = '';
   saleHistory: SaleHistory[] = [];
+  selected: 'today' | 'week' | 'month' = 'today';
+  salesSummary!: SalesSummaryResponseDto;
 
   constructor(private saleService: SaleService) { }
 
@@ -56,6 +59,21 @@ export class ReportComponent implements OnInit {
 
   export(format: string) {
     console.log('Export:', format);
+  }
+
+  loadSummary(type: 'today' | 'week' | 'month'): void {
+    this.selected = type;
+
+    this.saleService.getSummary(type).subscribe({
+      next: (data) => {
+        console.log('Sales summary:', data);
+        //this.saleHistory = data;
+        this.salesSummary = data;
+        this.saleHistory = data.sales;
+        // TODO: bind data to UI
+      },
+      error: (err) => console.error(err)
+    });
   }
 
   filterCustomer() {
