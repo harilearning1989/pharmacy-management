@@ -1,0 +1,148 @@
+<!-- add-supplier.component.html -->
+<div class="modal-header">
+    <h5 class="modal-title">Edit Invoice</h5>
+    <button type="button" class="btn btn-close btn-close-danger" (click)="cancel()"></button>
+</div>
+
+<div class="modal-body">
+    <div id="invoice-section" class="p-4 border rounded shadow-sm bg-light">
+        <!-- Customer Details -->
+        <div class="bg-white p-3 rounded mb-3 shadow-sm">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-1 text-font-size"><b>Customer Name:</b> {{ saleHistoryDetail.customer.name }}</p>
+                    <p class="mb-1 text-font-size"><b>Email:</b> {{ saleHistoryDetail.customer.email }}</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-1 text-font-size"><b>Phone:</b> {{ saleHistoryDetail.customer.phone }}</p>
+                    <p class="mb-1 text-font-size"><b>DOB:</b> {{ saleHistoryDetail.customer.dob | date }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sale Info -->
+        <!--<div class="bg-white p-3 rounded mb-3 shadow-sm">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-1 text-font-size"><b>Sale ID:</b> {{ saleHistoryDetail.id }}</p>
+                    <p class="mb-1 text-font-size"><b>Date:</b> {{ saleHistoryDetail.saleDate | date:'medium' }}</p>
+                    <p class="mb-1 text-font-size"><b>Payment:</b> {{ saleHistoryDetail.paymentMethod }}</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-1 text-font-size"><b>Sold By:</b> {{ saleHistoryDetail.soldBy.username }}</p>
+                    <p class="mb-1 text-font-size">{{ saleHistoryDetail.soldBy.email }}</p>
+                    <p class="mb-1 text-font-size">{{ saleHistoryDetail.soldBy.phone }}</p>
+                </div>
+            </div>
+        </div>-->
+        <div class="bg-white p-3 rounded mb-3 shadow-sm">
+            <div class="row align-items-center">
+
+                <!-- LEFT -->
+                <div class="col-md-4">
+                    <p class="mb-1 text-font-size">
+                        <b>Sale ID:</b> {{ saleHistoryDetail.id }}
+                    </p>
+                    <p class="mb-1 text-font-size">
+                        <b>Date:</b> {{ saleHistoryDetail.saleDate | date:'medium' }}
+                    </p>
+                    <p class="mb-1 text-font-size">
+                        <b>Payment:</b> {{ saleHistoryDetail.paymentMethod }}
+                    </p>
+                </div>
+
+                <!-- MIDDLE (ULTRA COMPACT) -->
+                <div class="col-md-4 text-center">
+                    <p class="mb-1 text-font-size">
+                        <b>Subtotal:</b> {{ saleHistoryDetail.subtotal | number:'1.2-2' }}
+                        &nbsp;|&nbsp;
+                        <b>Discount:</b> {{ saleHistoryDetail.discount | number:'1.2-2' }}
+                    </p>
+                    <p class="mb-1 text-font-size fw-bold">
+                        <b>GST:</b> {{ saleHistoryDetail.gst | number:'1.2-2' }}
+                        &nbsp;|&nbsp;
+                        <b>Total:</b> {{ saleHistoryDetail.grandTotal | number:'1.2-2' }}
+                    </p>
+                </div>
+
+                <!-- RIGHT -->
+                <div class="col-md-4 text-md-end">
+                    <p class="mb-1 text-font-size">
+                        <b>Sold By:</b> {{ saleHistoryDetail.soldBy.username }}
+                    </p>
+                    <p class="mb-1 text-font-size">
+                        {{ saleHistoryDetail.soldBy.email }}
+                    </p>
+                    <p class="mb-1 text-font-size">
+                        {{ saleHistoryDetail.soldBy.phone }}
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="table-responsive table-fixed-header">
+            <div *ngIf="alertMessage" class="alert alert-{{alertType}} alert-dismissible fade show">
+                {{ alertMessage }}
+            </div>
+            <table class="table cart-table align-middle mb-0 table-striped">
+                <thead class="table-header">
+                    <tr>
+                        <th>All</th>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>BatchNumber</th>
+                        <th>
+                            ExpiryDate
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body-scroll">
+                    <tr *ngFor="let m of saleHistoryDetail.saleMedicines; index as i">
+                        <td>
+                            <input type="checkbox" (change)="onCheckboxChange($event, m.id)" />
+                        </td>
+                        <td>{{m.id}}</td>
+                        <td>
+                            {{ m.medicineResponseDto.name }}<br>
+                            <small class="text-muted">{{ m.medicineResponseDto.brand }}</small>
+                        </td>
+                        <td>{{ m.medicineResponseDto.batchNumber }}</td>
+                        <td>{{ m.medicineResponseDto.expiryDate | date:'yyyy-MMM-dd' }}</td>
+                        <td class="text-end">{{ m.quantity }}</td>
+                        <td class="text-end">{{ m.price | number:'1.2-2' }}</td>
+                        <td class="text-end fw-bold">{{ m.total | number:'1.2-2' }}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm p-0 me-1" style="width:24px; height:24px;"
+                                title="Edit">
+                                <i class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm p-0" style="width:24px; height:24px;" title="Delete"
+                                (click)="deleteMedicine(m)">
+                                <i class="bi bi-trash-fill" style="font-size: 0.8rem;"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="returnMedicines()">
+        Return Selected Medicines
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-danger" (click)="cancel()">Cancel</button>
+</div>

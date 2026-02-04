@@ -1,1 +1,55 @@
-<p>return works!</p>
+<div class="container mt-3">
+  <div class="card mb-2 shadow-sm">
+    <div class="card-header d-flex align-items-center justify-content-center py-1">
+      <span>Show All Customers</span>
+    </div>
+
+    <div class="card-body">
+      <!-- 🔍 SEARCH BOX (ADD HERE) -->
+      <div class="row mb-3 align-items-center">
+        <!-- Search -->
+        <div class="col-8 col-md-4 ms-auto">
+          <input type="text" class="form-control form-control-sm" placeholder="Search name, email or phone"
+            [(ngModel)]="searchText" />
+        </div>
+      </div>
+
+      <div class="table-responsive table-fixed-header">
+        <table class="table cart-table align-middle mb-0 table-striped">
+          <thead class="table-header">
+            <tr>
+              <th (click)="sort('saleId')" style="cursor:pointer">
+                SaleId <i class="bi ms-1" [ngClass]="getSortIcon('saleId')"></i>
+              </th>
+              <th (click)="sort('customerName')" style="cursor:pointer">
+                Customer Name <i class="bi ms-1" [ngClass]="getSortIcon('customerName')"></i>
+              </th>
+              <th (click)="sort('customerPhone')" style="cursor:pointer">
+                Customer Phone <i class="bi ms-1" [ngClass]="getSortIcon('customerPhone')"></i>
+              </th>
+              <th>Grand Total</th>
+              <th>Payment</th>
+              <th (click)="sort('saleDate')" style="cursor:pointer">
+                Sale Date <i class="bi ms-1" [ngClass]="getSortIcon('saleDate')"></i>
+              </th>
+              <th>Username</th>
+            </tr>
+          </thead>
+          <tbody class="table-body-scroll">
+            <tr *ngFor="let cust of filterCustomer(); let i = index" style="cursor:pointer"
+              (click)="openSaleDialog(cust.saleId)">
+              <td>{{ cust.saleId }}</td>
+              <td>{{ cust.customerName }}</td>
+              <td>{{ cust.customerPhone }}</td>
+              <td>{{ cust.grandTotal}}</td>
+              <td>{{ cust.paymentMethod}}</td>
+              <td>{{ cust.saleDate | date:'yyyy-MMM-dd' }}</td>
+              <td>{{ cust.username}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

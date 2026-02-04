@@ -41,4 +41,8 @@ export class SaleService {
   getSummary(type: 'today' | 'week' | 'month'): Observable<SalesSummaryResponseDto> {
     return this.http.get<SalesSummaryResponseDto>(`${this.baseUrl}sales/history/${type}`);
   }
+
+  returnSaleMedicines(saleId: number, saleMedicineIds: number[]): Observable<SaleHistoryDetail> {
+    return this.http.put<SaleHistoryDetail>(`${this.baseUrl}sale/return/${saleId}`,saleMedicineIds);
+  }
 }

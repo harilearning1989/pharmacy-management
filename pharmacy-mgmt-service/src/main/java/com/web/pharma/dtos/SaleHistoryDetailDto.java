@@ -36,5 +36,19 @@ public record SaleHistoryDetailDto(
                         .toList()
         );
     }
+    public static SaleHistoryDetailDto empty() {
+        return new SaleHistoryDetailDto(
+                null,
+                null,
+                null,
+                BigDecimal.ZERO,
+                BigDecimal.ZERO,
+                BigDecimal.ZERO,
+                BigDecimal.ZERO,
+                null,
+                null,
+                List.of()
+        );
+    }
 }
 

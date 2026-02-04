@@ -5,6 +5,7 @@ import com.web.pharma.models.SaleMedicine;
 import java.math.BigDecimal;
 
 public record SaleMedicineHistoryDto(
+        Long id,
         Integer quantity,
         BigDecimal price,
         BigDecimal total,
@@ -12,6 +13,7 @@ public record SaleMedicineHistoryDto(
 ) {
     public static SaleMedicineHistoryDto fromEntity(SaleMedicine saleMedicine) {
         return new SaleMedicineHistoryDto(
+                saleMedicine.getId(),
                 saleMedicine.getQuantity(),
                 saleMedicine.getPrice(),
                 saleMedicine.getTotal(),

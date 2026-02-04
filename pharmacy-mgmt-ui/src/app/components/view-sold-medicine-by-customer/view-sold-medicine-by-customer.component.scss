@@ -1,0 +1,68 @@
+
+.modal-header {
+  height: 40px;          /* pick what you want */
+  border-bottom: 1px solid #dee2e6;
+  background-color: #e2e8f0;
+
+  display: flex;
+  align-items: center;  /* vertically center content */
+}
+
+.modal-title {
+  font-weight: 600;
+}
+
+.modal-footer {
+  height: 40px;
+  padding: 0 12px;              /* reduce default Bootstrap padding */
+  border-top: 1px solid #dee2e6;
+  background-color: #e2e8f0;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.modal-footer .btn {
+  height: 28px;                 /* smaller than default */
+  padding: 0 12px;
+  line-height: 28px;            /* ensures text is centered */
+  margin: 0;
+}
+
+/* ================= HEADER (KEEP AS IS) ================= */
+.table-fixed-header {
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.table-fixed-header thead th {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 10;
+}
+
+/* Table outer border */
+.cart-table {
+  border: 1px solid #d1d5db; /* darker border */
+  font-size: 11px;
+}
+
+.cart-table thead th {
+  background-color: #e2e8f0;
+  text-align: center;
+}
+
+/* ================= BODY ROW HEIGHT FIX ================= */
+.cart-table tbody td {
+  padding: 6px 6px !important;   /* main height control */
+  font-size: 11px;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+  text-align: center;
+}
+
+.text-font-size{
+  font-size: 11px;
+}

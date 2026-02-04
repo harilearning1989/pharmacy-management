@@ -1,0 +1,40 @@
+.card-header {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  background-color: #e2e8f0;
+  font-size: 12px;
+}
+
+/* Table outer border */
+.cart-table {
+  border: 1px solid #d1d5db; /* darker border */
+  font-size: 11px;
+}
+
+/* ================= HEADER (KEEP AS IS) ================= */
+.table-fixed-header {
+  height: 70vh; /* Table body will take 60% of viewport height */
+  overflow-y: auto;
+}
+
+.table-fixed-header thead th {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 10;
+}
+
+.cart-table thead th {
+  background-color: #e2e8f0;
+  text-align: center;
+}
+
+/* ================= BODY ROW HEIGHT FIX ================= */
+.cart-table tbody td {
+  padding: 6px 6px !important;   /* main height control */
+  font-size: 11px;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+  text-align: center;
+}

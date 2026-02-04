@@ -119,8 +119,6 @@ showError(message: string) {
     );
   }
 
-
-
   filterCustomer() {
     if (!this.searchText) {
       return this.suppliers;

@@ -71,6 +71,34 @@ export class ReportComponent implements OnInit {
         this.salesSummary = data;
         this.saleHistory = data.sales;
         // TODO: bind data to UI
+
+        // Update KPI cards dynamically
+    this.kpis = [
+      {
+        title: 'Total Sales',
+        value: this.salesSummary.totalSales,
+        icon: 'bi-receipt',
+        color: 'primary'
+      },
+      {
+        title: 'Total Revenue',
+        value: this.salesSummary.totalAmount,
+        icon: 'bi-currency-rupee',
+        color: 'success'
+      },
+      {
+        title: 'Total Discount',
+        value: this.salesSummary.totalDiscount,
+        icon: 'bi-percent',
+        color: 'warning'
+      },
+      {
+        title: 'GST Collected',
+        value: this.salesSummary.totalGst,
+        icon: 'bi-bank',
+        color: 'info'
+      }
+    ];
       },
       error: (err) => console.error(err)
     });
