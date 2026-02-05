@@ -2,6 +2,7 @@ package com.web.pharma.controls;
 
 import com.web.pharma.dtos.CustomerDto;
 import com.web.pharma.services.CustomerService;
+import com.web.pharma.utils.CustomerValidation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,6 +31,13 @@ public class CustomerRestController {
             @ApiResponse(responseCode = "400", description = "Invalid request data")
     })
     public ResponseEntity<CustomerDto> register(@RequestBody CustomerDto dto) {
+        if (!CustomerValidation.isValidEmail(dto.email())) {
+            throw new IllegalArgumentException("Invalid email format");
+        }
+
+        if (!CustomerValidation.isValidPhone(dto.phone())) {
+            throw new IllegalArgumentException("Invalid phone number");
+        }
         return ResponseEntity.ok(service.registerCustomer(dto));
     }
 

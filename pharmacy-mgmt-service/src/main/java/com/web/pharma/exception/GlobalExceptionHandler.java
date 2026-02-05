@@ -4,9 +4,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.net.URI;
+import java.util.Map;
 
 //@RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -120,6 +122,14 @@ public class GlobalExceptionHandler {
         problemDetail.setDetail(ex.getMessage());
         problemDetail.setType(URI.create("https://example.com/problems/internal-error"));
         return problemDetail;
+    }*/
+
+    /*@ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, String>> handleIllegalArgument(
+            IllegalArgumentException ex) {
+
+        return ResponseEntity.badRequest()
+                .body(Map.of("error", ex.getMessage()));
     }*/
 
 
